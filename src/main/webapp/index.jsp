@@ -24,6 +24,7 @@
         </c:if>
 
         <h2>Svømmedage</h2>
+        <br>
 
         <div class="table-responsive">
             <table class="table table-striped table-hover">

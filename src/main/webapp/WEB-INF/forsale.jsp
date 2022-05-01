@@ -15,7 +15,9 @@
 
     <jsp:body>
 
+        <br>
         <h3>Billetter til salg</h3>
+        <br>
 
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -35,18 +37,25 @@
                             <td>${forsale.weekNo}</td>
                             <td>${forsale.team}</td>
                             <td>
-<%--                                Den sender info fra øverste element i tabellen og ikke det jeg klikker på HVORFOR???!--%>
+                                    <%--                                Den sender info fra øverste element i tabellen og ikke det jeg klikker på HVORFOR???!--%>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
-<%--                                            <input type="hidden" name="command" value="buy"/>--%>
-                                            <input type="number" name="buy" id="buy${forsale.weekNo}"
+                                                <%--                                            <input type="hidden" name="command" value="buy"/>--%>
+                                            <input type="number" name="buy" id="buy${forsale.weekNo}${forsale.familyId}"
                                                    class="form-control" value="${forsale.amountForSaleFromOneFamily}"
-                                                   style="width: 5rem" min="0" max="${forsale.amountForSaleFromOneFamily}"/>
+                                                   style="width: 5rem" min="0"
+                                                   max="${forsale.amountForSaleFromOneFamily}"/>
+<%--                                                    ${param.}--%>
+<%--                                                    <c:url value="pathToValue?jsfVariableName=${backendLoginVariable}" />--%>
+<%--                                            <c-rt:set var="var2" value="value2" scope="request"/>--%>
                                         </div>
                                         <div class="col">
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="${forsale.swimday},${forsale.familyId}">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop${forsale.weekNo}${forsale.familyId}"
+                                                    value="${forsale.swimday},${forsale.familyId}">
                                                 Køb
                                             </button>
                                         </div>
@@ -54,46 +63,56 @@
                                 </div>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal fade" id="staticBackdrop${forsale.weekNo}${forsale.familyId}"
+                                     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                     aria-labelledby="staticBackdropLabel${forsale.weekNo}${forsale.familyId}"
+                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Køb ${forsale.amountForSaleFromOneFamily} billetter til den ${forsale.swimday}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title"
+                                                    id="staticBackdropLabel${forsale.weekNo}${forsale.familyId}">
+                                                    Køb ${forsale.amountForSaleFromOneFamily} billetter til
+                                                    den ${forsale.swimday}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Overfør <c:out value="${15 * forsale.amountForSaleFromOneFamily}" /> kr til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo}
+                                                Overfør <c:out value="${15 * forsale.amountForSaleFromOneFamily}"/> kr
+                                                til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo}
                                             </div>
                                             <div class="modal-footer">
                                                 <input type="hidden" name="command" value="buy"/>
-                                                <%--   <button type="button" class="btn btn-primary">Jeg har overført nu</button>--%>
+                                                    <%--   <button type="button" class="btn btn-primary">Jeg har overført nu</button>--%>
                                                 <button type="submit" class="btn btn-primary" name="buy_id"
-                                                        value="${forsale.swimday},${forsale.familyId}">Jeg har overført nu
+                                                        value="${forsale.swimday},${forsale.familyId}">Jeg har overført
+                                                    nu
                                                 </button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fortryd køb</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Fortryd køb
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
 
-
-<%--                                <div class="container">--%>
-<%--                                    <div class="row">--%>
-<%--                                        <div class="col">--%>
-<%--                                            <input type="hidden" name="command" value="buy"/>--%>
-<%--                                            <input type="number" name="buy" id="buy${forsale.weekNo}"--%>
-<%--                                                   class="form-control" value="${forsale.amountForSaleFromOneFamily}"--%>
-<%--                                                   style="width: 5rem" min="0" max="${forsale.amountForSaleFromOneFamily}"/>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col">--%>
-<%--                                            <button type="submit" class="btn btn-outline-secondary" name="buy_id"--%>
-<%--                                                    value="${forsale.swimday},${forsale.familyId}">Køb--%>
-<%--                                            </button>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                --%>
+                                    <%--                                <div class="container">--%>
+                                    <%--                                    <div class="row">--%>
+                                    <%--                                        <div class="col">--%>
+                                    <%--                                            <input type="hidden" name="command" value="buy"/>--%>
+                                    <%--                                            <input type="number" name="buy" id="buy${forsale.weekNo}"--%>
+                                    <%--                                                   class="form-control" value="${forsale.amountForSaleFromOneFamily}"--%>
+                                    <%--                                                   style="width: 5rem" min="0" max="${forsale.amountForSaleFromOneFamily}"/>--%>
+                                    <%--                                        </div>--%>
+                                    <%--                                        <div class="col">--%>
+                                    <%--                                            <button type="submit" class="btn btn-outline-secondary" name="buy_id"--%>
+                                    <%--                                                    value="${forsale.swimday},${forsale.familyId}">Køb--%>
+                                    <%--                                            </button>--%>
+                                    <%--                                        </div>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                </div>--%>
+                                    <%--                                --%>
 
                             </td>
                         </form>
@@ -102,6 +121,9 @@
                 </tbody>
             </table>
         </div>
+
+
+
 
     </jsp:body>
 </t:pagetemplate>

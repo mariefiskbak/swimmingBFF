@@ -15,18 +15,21 @@
 
     <jsp:body>
 
+        <br>
         <h3>${sessionScope.name}  ***  plus mere info i siden ***</h3>
 
+        <br>
+
         <p>Beskeder: *** Har nogle købt mine billetter - ok knap, der får beskeden til at forsvinde***</p>
+
+        <br>
 
         <form action="fc/forsale" method="post">
             <input type="hidden" name="command" value="forsale"/>
             <input type="submit" value="Se billetter til salg"/>
         </form>
 
-
         <br>
-
 
         <h2>Dine svømmebilletter</h2>
 

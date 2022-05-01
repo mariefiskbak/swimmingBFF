@@ -16,11 +16,43 @@
     <jsp:body>
 
         <br>
-        <h3>${sessionScope.name}  ***  plus mere info i siden ***</h3>
+        <h3>${sessionScope.name} *** plus mere info i siden ***</h3>
 
         <br>
+        <h3>Beskeder</h3>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Besked</th>
+                    <th scope="col">Fjern besked</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="messages" items="${sessionScope.messageList}">
+                    <tr>
+                        <form action="fc/deletemessage">
+                            <td>${messages.message}</td>
+                            <td>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="hidden" name="command" value="deletemessage"/>
+                                            <button type="submit" class="btn btn-outline-secondary" name="deletemessage" id="deletemessage${messages.messageId}"
+                                                   value="${messages.messageId}"
+                                            >Læst</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </form>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
 
-        <p>Beskeder: *** Har nogle købt mine billetter - ok knap, der får beskeden til at forsvinde***</p>
 
         <br>
 

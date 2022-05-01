@@ -24,6 +24,7 @@ abstract class Command
         commands.put("forsale", new Forsale());
         commands.put("index", new Index());
         commands.put("buy", new Buy());
+        commands.put("deletemessage", new DeleteMessage());
     }
 
     static Command from( HttpServletRequest request ) {

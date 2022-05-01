@@ -2,12 +2,10 @@ package dat.startcode.control;
 
 import dat.startcode.model.dtos.ForSaleDTO;
 import dat.startcode.model.dtos.SwimTableDTO;
+import dat.startcode.model.entities.Message;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.SalesMapper;
-import dat.startcode.model.persistence.SwimMapper;
-import dat.startcode.model.persistence.UserMapper;
+import dat.startcode.model.persistence.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +25,11 @@ public class Userpage extends Command {
 
             SwimMapper swimMapper = new SwimMapper(connectionPool);
             int familyId = user.getFamilyId();
+
+            MessageMapper messageMapper = new MessageMapper(connectionPool);
+            List<Message> messageList = messageMapper.getMessageList(familyId);
+            session.setAttribute("messageList", messageList);
+
             List<SwimTableDTO> swimTableDTOList = swimMapper.getSwimTableDTOList(familyId);
             session.setAttribute("swimTableDTOList", swimTableDTOList);
 

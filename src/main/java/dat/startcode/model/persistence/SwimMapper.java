@@ -215,4 +215,24 @@ public class SwimMapper {
         }
 
     }
+
+    public String getFamilyName(int buyerFamilyId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        String buyerFamilyIdS = "" + buyerFamilyId;
+        String buyerFamilyName = "";
+
+        String sql = "SELECT swimming.user.name FROM swimming.user WHERE swimming.user.family_id = ? AND swimming.user.primary_user = 'yes'";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, buyerFamilyIdS);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    buyerFamilyName = rs.getString("name");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning fra databasen");
+        }
+        return buyerFamilyName;
+    }
 }

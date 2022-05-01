@@ -56,7 +56,7 @@
                                             <button type="button" class="btn btn-outline-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#staticBackdrop${forsale.weekNo}_${forsale.familyId}"
-                                                    value="${forsale.swimday},${forsale.familyId}">
+                                                    value="${forsale.swimday},${forsale.familyId}" id="submit">
                                                 Køb
                                             </button>
                                         </div>
@@ -73,19 +73,12 @@
                                             <div class="modal-header">
                                                 <h5 class="modal-title"
                                                     id="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}">
-                                                    Køb ${forsale.amountForSaleFromOneFamily} billetter til
-                                                    den ${forsale.swimday}</h5>
+                                                    </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                    <%--                                               <c:out value="${param.buy}" />--%>
-<%--                                                Burde lave 15 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
-                                                Overfør <c:out value="${15 * forsale.amountForSaleFromOneFamily}"/> kr
-                                                til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo}
-                                                <br>
-                                                Skriv: "${forsale.amountForSaleFromOneFamily} svømmebilletter til
-                                                den ${forsale.swimday}" i kommentarfeltet.
+                                                <p id="modal_body"></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <input type="hidden" name="command" value="buy"/>
@@ -122,11 +115,23 @@
                             </td>
                         </form>
                     </tr>
+    <%--                                                Burde lave 15 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
+        <script type="text/javascript">
+            $("#submit").click(function () {
+                var amount = $("#buy${forsale.weekNo}_${forsale.familyId}").val();
+                var str = "Overfør "
+                    + 15 * amount +
+                    " kr til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo} \nSkriv: '" + amount
+                    + " svømmebilletter til den ${forsale.swimday}' i kommentarfeltet.";
+                $("#modal_body").html(str);
+
+                var head = "Køb " + amount + " billetter til den ${forsale.swimday}"
+                $("#staticBackdropLabel${forsale.weekNo}_${forsale.familyId}").html(head);
+            });
+        </script>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
-
-
     </jsp:body>
 </t:pagetemplate>

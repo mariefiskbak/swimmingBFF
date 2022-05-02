@@ -79,17 +79,19 @@ public class ApplicationStart implements ServletContextListener
     }
 }
 
-
-//TODO: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal
-//TODO: Lave views i SQL?
-//TODO: Slette primaryUserEmail i FamilyTabellen
-//TODO: Gøre primaryUser i User til binær??
-//TODO: Sætte nogle flere auto increment og automatisk zero?
-//TODO: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
-//TODO: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
-//TODO: doven adminmulighed? Bare kunne skrive SQL direkte? Vigtigt kun for admin i så fald, og ikke noget man kan komme ind på via URL
-//TODO: Fejlhåndtering
-//TODO: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
-//TODO: Mobilvisning er vigtigt
-//TODO: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
-//TODO: Logo og footer på pagetemplate
+//SMALL: det virker nemt og hurtigt, MEDIUM: tror godt jeg kan finde ud af det, måske med lidt research. LARGE: Skal enten bruge meget tid, eller meget research.
+//TODO: S: Slette primaryUserEmail i FamilyTabellen
+//TODO: S: Logo og footer på pagetemplate
+//TODO: M: sørge for at der kun bliver listet svømmedage fra i dag og frem. Ikke fra fortiden.
+//TODO: M: Lave views i SQL?
+//TODO: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal
+//TODO: M: Gøre primaryUser i User til binær??
+//TODO: M: Sætte nogle flere auto increment og automatisk zero?
+//TODO: L: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
+//TODO: M: doven adminmulighed? Bare kunne skrive SQL direkte? Vigtigt kun for admin i så fald, og ikke noget man kan komme ind på via URL
+//TODO: L: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
+//TODO: XL: Fejlhåndtering
+//TODO: M: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
+//TODO: XL: Det går galt hvis to køber samtidigt. Beskrevet i Buy.java
+//TODO: XL: Mobilvisning er vigtigt
+//TODO: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.

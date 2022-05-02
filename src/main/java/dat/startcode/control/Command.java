@@ -20,11 +20,14 @@ abstract class Command
         commands.put("about", new About());
         commands.put("userpage", new Userpage());
         commands.put("sell", new Sell());
-        commands.put("regret", new Regret());
+        commands.put("regretSettingForSale", new RegretSettingForSale());
         commands.put("forsale", new Forsale());
         commands.put("index", new Index());
         commands.put("buy", new Buy());
         commands.put("deletemessage", new DeleteMessage());
+        commands.put("buyMessage", new BuyMessage());
+        commands.put("regretBuying", new RegretBuying());
+        commands.put("pay", new Pay());
     }
 
     static Command from( HttpServletRequest request ) {
@@ -37,5 +40,7 @@ abstract class Command
 
     abstract String execute( HttpServletRequest request, HttpServletResponse response )
             throws DatabaseException, ServletException, IOException;
+
+
 
 }

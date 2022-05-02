@@ -22,7 +22,7 @@
             <p>Log ind her: <a
                     href="login.jsp">Login</a></p>
         </c:if>
-
+        <br>
         <h2>Svømmedage</h2>
         <br>
 

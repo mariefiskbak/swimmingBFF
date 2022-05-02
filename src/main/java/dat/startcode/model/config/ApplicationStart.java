@@ -78,3 +78,18 @@ public class ApplicationStart implements ServletContextListener
         }
     }
 }
+
+
+//TODO: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal
+//TODO: Lave views i SQL?
+//TODO: Slette primaryUserEmail i FamilyTabellen
+//TODO: Gøre primaryUser i User til binær??
+//TODO: Sætte nogle flere auto increment og automatisk zero?
+//TODO: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
+//TODO: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
+//TODO: doven adminmulighed? Bare kunne skrive SQL direkte? Vigtigt kun for admin i så fald, og ikke noget man kan komme ind på via URL
+//TODO: Fejlhåndtering
+//TODO: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
+//TODO: Mobilvisning er vigtigt
+//TODO: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
+//TODO: Logo og footer på pagetemplate

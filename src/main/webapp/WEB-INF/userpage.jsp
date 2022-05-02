@@ -107,7 +107,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="hidden" name="command" value="regret"/>
+                                            <input type="hidden" name="command" value="regretSettingForSale"/>
                                             <input type="number" name="regret" id="regret${swimtable.weekNo}"
                                                    class="form-control" value="${swimtable.ticketsForSale}"
                                                    style="width: 5rem" min="0" max="${swimtable.ticketsForSale}"/>

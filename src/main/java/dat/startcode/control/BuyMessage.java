@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Buy extends Command {
+public class BuyMessage extends Command {
     private static final int ticketPrice = 15;
 
     @Override
@@ -35,16 +35,6 @@ public class Buy extends Command {
         int buyFromFamilyId = Integer.parseInt(familyIdS);
         User user = (User) session.getAttribute("user");
         int buyerFamilyId = user.getFamilyId();
-
-        swimMapper.buy(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
-
-        //TODO Hvis en har trykket KØB, så kan en anden købe billetterne inden der er trykket på JEG HAR OVERFØRT,
-        // og så kan den anden person også få dem, og der kommer rod i databasen og begge har betalt osv.
-        // Jeg gik i gang med at løse det med ny jsp-side Pay, men det er heller ikke godt, for folk kan trykke pil tilbage.
-        // (OBS på refresh og pil tilbage ved Modal i øvrigt).
-        // Databasen skal helst lægge billetterne i en kurv til de er betalt, så de er reserverede og ikke kan købes.
-        // Det kan måske gøres med javascript.
-
 
 
         MessageMapper messageMapper = new MessageMapper(connectionPool);

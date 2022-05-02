@@ -45,24 +45,19 @@
                                                    class="form-control" value="${forsale.amountForSaleFromOneFamily}"
                                                    style="width: 5rem" min="0"
                                                    max="${forsale.amountForSaleFromOneFamily}"/>
-
-                                                <%--                                            Jeg skal have parameteren ud så der bliver købt det rigtige antal--%>
-                                                <%--                                                    ${param.}--%>
-                                                <%--                                                    <c:url value="pathToValue?jsfVariableName=${backendLoginVariable}" />--%>
-                                                <%--                                            <c-rt:set var="var2" value="value2" scope="request"/>--%>
                                         </div>
                                         <div class="col">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-outline-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#staticBackdrop${forsale.weekNo}_${forsale.familyId}"
-                                                    value="${forsale.swimday},${forsale.familyId}" id="submit">
+                                                    value="${forsale.swimday},${forsale.familyId}"
+                                                    id="submit${forsale.weekNo}_${forsale.familyId}">
                                                 Køb
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop${forsale.weekNo}_${forsale.familyId}"
                                      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -73,18 +68,18 @@
                                             <div class="modal-header">
                                                 <h5 class="modal-title"
                                                     id="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}">
-                                                    </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                </h5>
+<%--                                                <button type="button" class="btn-close" data-bs-dismiss="modal"--%>
+<%--                                                        aria-label="Close"></button>--%>
                                             </div>
                                             <div class="modal-body">
-                                                <p id="modal_body"></p>
+                                                <p id="modal_body${forsale.weekNo}_${forsale.familyId}"></p>
+                                                <p id="modal_body2${forsale.weekNo}_${forsale.familyId}"></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <input type="hidden" name="command" value="buy"/>
                                                 <button type="submit" class="btn btn-primary" name="buy_id"
-                                                        value="${forsale.swimday},${forsale.familyId}">Jeg har overført
-                                                    nu
+                                                        value="${forsale.swimday},${forsale.familyId}">Jeg har overført nu
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     Fortryd køb
@@ -93,45 +88,32 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                    <%--                                <div class="container">--%>
-                                    <%--                                    <div class="row">--%>
-                                    <%--                                        <div class="col">--%>
-                                    <%--                                            <input type="hidden" name="command" value="buy"/>--%>
-                                    <%--                                            <input type="number" name="buy" id="buy${forsale.weekNo}"--%>
-                                    <%--                                                   class="form-control" value="${forsale.amountForSaleFromOneFamily}"--%>
-                                    <%--                                                   style="width: 5rem" min="0" max="${forsale.amountForSaleFromOneFamily}"/>--%>
-                                    <%--                                        </div>--%>
-                                    <%--                                        <div class="col">--%>
-                                    <%--                                            <button type="submit" class="btn btn-outline-secondary" name="buy_id"--%>
-                                    <%--                                                    value="${forsale.swimday},${forsale.familyId}">Køb--%>
-                                    <%--                                            </button>--%>
-                                    <%--                                        </div>--%>
-                                    <%--                                    </div>--%>
-                                    <%--                                </div>--%>
-                                    <%--                                --%>
-
                             </td>
-                        </form>
                     </tr>
-    <%--                                                Burde lave 15 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
-        <script type="text/javascript">
-            $("#submit").click(function () {
-                var amount = $("#buy${forsale.weekNo}_${forsale.familyId}").val();
-                var str = "Overfør "
-                    + 15 * amount +
-                    " kr til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo} \nSkriv: '" + amount
-                    + " svømmebilletter til den ${forsale.swimday}' i kommentarfeltet.";
-                $("#modal_body").html(str);
+                    </form>
+                    <%--                                                Burde lave 15 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
+                    <script type="text/javascript">
+                        $("#submit${forsale.weekNo}_${forsale.familyId}").click(function () {
+                            var amount = $("#buy${forsale.weekNo}_${forsale.familyId}").val();
+                            var str = "Overfør "
+                                + 15 * amount +
+                                " kr til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo}"
+                            $("#modal_body${forsale.weekNo}_${forsale.familyId}").html(str);
 
-                var head = "Køb " + amount + " billetter til den ${forsale.swimday}"
-                $("#staticBackdropLabel${forsale.weekNo}_${forsale.familyId}").html(head);
-            });
-        </script>
+                            var str2 = "Skriv: '" + amount
+                                + " svømmebilletter til den ${forsale.swimday}' i kommentarfeltet";
+                            $("#modal_body2${forsale.weekNo}_${forsale.familyId}").html(str2);
+
+                            var head = "Køb " + amount + " billetter til den ${forsale.swimday}"
+                            $("#staticBackdropLabel${forsale.weekNo}_${forsale.familyId}").html(head);
+                        });
+                    </script>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
+
+        <%--        Til sikring mod to der køber samtidigt:--%>
+        <%--        egentlig skal databasen ændres tilbage ved KØB, og ændres tilbage ved FORTRYD, og så først ved JEG HAR OVERFØRT skal beskeden laves--%>
     </jsp:body>
 </t:pagetemplate>

@@ -44,6 +44,10 @@ public class Buy extends Command {
         // (OBS på refresh og pil tilbage ved Modal i øvrigt).
         // Databasen skal helst lægge billetterne i en kurv til de er betalt, så de er reserverede og ikke kan købes.
         // Det kan måske gøres med javascript.
+        // Når man trykker på knappen lægger javascript billetterne over i en reserveret kolonne,
+        // Først når man siger man har betalt ryger de over på ens egen billetrække.
+        // Trykker man fortryd kommer de tilbage til salg.
+        // Hvis brugeren logger ud eller sessionen afbrydes på anden vis skal billetterne også tilbahe til salg
 
 
 

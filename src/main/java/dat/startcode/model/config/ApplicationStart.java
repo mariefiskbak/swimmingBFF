@@ -84,7 +84,8 @@ public class ApplicationStart implements ServletContextListener
 //TODO: S: Logo og footer på pagetemplate
 //TODO: M: sørge for at der kun bliver listet svømmedage fra i dag og frem. Ikke fra fortiden.
 //TODO: M: Lave views i SQL?
-//TODO: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal
+//TODO: M: kryptere passwords
+//TODO: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal. INT UNSIGNED, så skal der også exception handling på
 //TODO: M: Gøre primaryUser i User til binær??
 //TODO: M: Sætte nogle flere auto increment og automatisk zero?
 //TODO: L: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.

@@ -91,8 +91,12 @@ public class ApplicationStart implements ServletContextListener
 //TODO: L: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
 //TODO: M: doven adminmulighed? Bare kunne skrive SQL direkte? Vigtigt kun for admin i så fald, og ikke noget man kan komme ind på via URL
 //TODO: L: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
+//TODO: L: Exceptionproblem, når noget går galt i en mapper, så kører exceptionen den bare videre til en anden database, og looper. Den skal stoppe.
 //TODO: XL: Fejlhåndtering
 //TODO: M: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
 //TODO: XL: Det går galt hvis to køber samtidigt. Beskrevet i Buy.java
 //TODO: XL: Mobilvisning er vigtigt
 //TODO: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
+//TODO: L: læse op på syncronized block foran metode, så er der kun en der kan være der af gangen.
+// Synchronized hashmap. Cemaphores..? Concurrent hashmap
+

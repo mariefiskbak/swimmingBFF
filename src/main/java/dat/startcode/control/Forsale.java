@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.dtos.ForSaleDTO;
 import dat.startcode.model.dtos.SwimTableDTO;
 import dat.startcode.model.entities.User;
@@ -13,10 +14,15 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class Forsale extends Command {
+
+    private ConnectionPool connectionPool;
+
+    public Forsale() {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
         HttpSession session = request.getSession();
-        ConnectionPool connectionPool = new ConnectionPool();
 
         User user = (User) session.getAttribute("user");
         String name = user.getName();
@@ -27,7 +33,7 @@ public class Forsale extends Command {
 
         List<ForSaleDTO> forSaleDTOList = swimMapper.getForSaleDTOList();
         session.setAttribute("forSaleDTOList", forSaleDTOList);
-        //TODO, vil kun liste billetter til slag, hvor datoen endnu ikke er nået
+        //TODO, vil kun liste billetter til salg, hvor datoen endnu ikke er nået
 
         return "forsale";
     }

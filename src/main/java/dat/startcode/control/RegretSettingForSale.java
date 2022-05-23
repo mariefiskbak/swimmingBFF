@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -11,9 +12,15 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 
 public class RegretSettingForSale extends Command {
+    private ConnectionPool connectionPool;
+
+    public RegretSettingForSale()
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
-        ConnectionPool connectionPool = new ConnectionPool();
         HttpSession session = request.getSession();
 
         SwimMapper swimMapper = new SwimMapper(connectionPool);

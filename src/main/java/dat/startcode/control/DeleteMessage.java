@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.MessageMapper;
@@ -11,10 +12,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class DeleteMessage extends Command {
+    private ConnectionPool connectionPool;
+
+    public DeleteMessage() {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException, ServletException, IOException {
-        ConnectionPool connectionPool = new ConnectionPool();
         HttpSession session = request.getSession();
 
         MessageMapper messageMapper = new MessageMapper(connectionPool);

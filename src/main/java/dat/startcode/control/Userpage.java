@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.dtos.ForSaleDTO;
 import dat.startcode.model.dtos.SwimTableDTO;
 import dat.startcode.model.entities.Message;
@@ -14,10 +15,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Userpage extends Command {
-        @Override
+    private ConnectionPool connectionPool;
+
+    public Userpage()
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
+    @Override
         String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
             HttpSession session = request.getSession();
-            ConnectionPool connectionPool = new ConnectionPool();
 
             User user = (User) session.getAttribute("user");
             String name = user.getName();

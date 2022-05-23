@@ -16,7 +16,8 @@
     <jsp:body>
 
         <br>
-        <h3>${sessionScope.name} *** plus mere info i siden ***</h3>
+        <h3>${sessionScope.name}</h3>
+        <p>Mobile pay nr: ${sessionScope.user.phoneNo}</p>
 
         <br>
         <h3>Beskeder</h3>
@@ -131,7 +132,7 @@
         </div>
 
         <br>
-        <p><a href="../index.jsp">Til forsiden</a></p>
+        <p><a href="${pageContext.request.contextPath}/fc/index?command=index">Til forsiden</a></p>
 
 
     </jsp:body>

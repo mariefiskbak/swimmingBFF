@@ -15,7 +15,7 @@
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+        <h3>Du kan logge ind her</h3>
 
         <form action="fc/login" method="post">
             <input type="hidden" name="command" value="login"/>
@@ -23,7 +23,7 @@
             <input type="email" id="email" name="email"/>
             <label for="password">Password: </label>
             <input type="password" id="password" name="password"/>
-            <input type="submit"  value="Log in"/>
+            <input type="submit"  value="Log ind"/>
         </form>
 
     </jsp:body>

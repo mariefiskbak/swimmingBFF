@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -13,9 +14,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Sell extends Command {
+    private ConnectionPool connectionPool;
+
+    public Sell()
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException {
-        ConnectionPool connectionPool = new ConnectionPool();
         HttpSession session = request.getSession();
 
         SwimMapper swimMapper = new SwimMapper(connectionPool);

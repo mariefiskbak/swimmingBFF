@@ -14,7 +14,6 @@ public class ConnectionPool
     private static String USER = "root";
     private static String PASSWORD = "root";
     private static String URL = "jdbc:mysql://localhost:3306/swimming";
-    //TODO kodeordet skal ikke stå i koden, og det skal være sikkert
 
     public ConnectionPool()
     {
@@ -29,7 +28,7 @@ public class ConnectionPool
             // Prod: hent variabler fra setenv.sh i Tomcats bin folder
             USER = System.getenv("JDBC_USER");
             PASSWORD = System.getenv("JDBC_PASSWORD");
-            URL = System.getenv("JDBC_CONNECTION_STRING");
+            URL = System.getenv("JDBC_CONNECTION_STRING_SWIM");
         }
 
         Logger.getLogger("web").log(Level.INFO,

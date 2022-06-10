@@ -98,5 +98,6 @@ public class ApplicationStart implements ServletContextListener
 //TODO: XL: Mobilvisning er vigtigt
 //TODO: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
 //TODO: L: læse op på syncronized block foran metode, så er der kun en der kan være der af gangen.
+//TODO: L: Lave en ønske-funktion, hvor man kan ønske billetter og folk der vil sælge kan kontakte en direkte på tlf-nummer
 // Synchronized hashmap. Cemaphores..? Concurrent hashmap. API
 

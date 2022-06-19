@@ -9,6 +9,7 @@ import dat.startcode.model.persistence.SwimMapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class RegretSettingForSale extends Command {
@@ -27,7 +28,7 @@ public class RegretSettingForSale extends Command {
         String sellAmountS = request.getParameter("regret");
         int regretAmount = Integer.parseInt(sellAmountS);
         String swimdateS = request.getParameter("regret_id");
-        LocalDate swimdate = LocalDate.parse(swimdateS);
+        Timestamp swimdate = Timestamp.valueOf(swimdateS);
         User user = (User) session.getAttribute("user");
         int familyId = user.getFamilyId();
         swimMapper.regret(swimdate, familyId, regretAmount);

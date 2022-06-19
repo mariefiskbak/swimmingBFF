@@ -22,13 +22,13 @@ public class SalesMapper {
 
         List<ForSaleDTO> forSaleDTOList = new ArrayList<>();
 
-        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimdaytickets.family_id, swimming.swimday.week_no, swimming.swimday.team_id, swimming.swimdaytickets.tickets_for_sale, swimming.user.phone_no, swimming.user.name FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate INNER JOIN swimming.user ON swimming.swimdaytickets.family_id=swimming.user.family_id INNER JOIN swimming.family ON swimming.swimdaytickets.family_id=swimming.family.family_id WHERE swimming.swimdaytickets.tickets_for_sale > 0 AND swimming.user.primary_user = 'yes' ORDER BY swimming.swimdaytickets.swimdate ASC, swimming.swimdaytickets.timestamp ASC";
+        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimdaytickets.family_id, swimming.swimday.week_no, swimming.swimday.team_id, swimming.swimdaytickets.tickets_for_sale, swimming.user.phone_no, swimming.user.name FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate INNER JOIN swimming.user ON swimming.swimdaytickets.family_id=swimming.user.family_id INNER JOIN swimming.family ON swimming.swimdaytickets.family_id=swimming.family.family_id WHERE swimming.swimdaytickets.tickets_for_sale > 0 AND swimming.user.primary_user = 'yes' AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR ORDER BY swimming.swimdaytickets.swimdate ASC, swimming.swimdaytickets.timestamp ASC";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    String swimdateS = "" + rs.getDate("swimdate");
-                    LocalDate swimdate = LocalDate.parse(swimdateS);
+                    String swimdateS = "" + rs.getTimestamp("swimdate");
+                    Timestamp swimdate = Timestamp.valueOf(swimdateS);
                     int familyId = rs.getInt("family_id");
                     int weekNo = rs.getInt("week_no");
                     String team = rs.getString("team_id");
@@ -38,7 +38,9 @@ public class SalesMapper {
                     //Timestamp timestamp = rs.getTimestamp("timestamp");
 
                     //ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, familyId, weekNo, ticketsForSaleFromOneFamily, timestamp);
-                    ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, familyId, weekNo, team, ticketsForSaleFromOneFamily, familyPhoneNo, familyName);
+                    int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, splitSwimdate, familyId, weekNo, team, ticketsForSaleFromOneFamily, familyPhoneNo, familyName);
                     forSaleDTOList.add(forSaleDTO);
                 }
             }

@@ -37,7 +37,7 @@
                 <c:forEach var="forsale" items="${sessionScope.forSaleDTOList}">
                     <tr>
                         <form action="fc/buy">
-                            <td>${forsale.swimday}</td>
+                            <td>${forsale.splitSwimday}</td>
                             <td>${forsale.weekNo}</td>
                             <td>${forsale.team}</td>
                             <td>
@@ -102,15 +102,15 @@
                         $("#submit${forsale.weekNo}_${forsale.familyId}").click(function () {
                             var amount = $("#buy${forsale.weekNo}_${forsale.familyId}").val();
                             var str = "Overfør "
-                                + 15 * amount +
+                                + 16 * amount +
                                 " kr til ${forsale.familyName} via Mobile Pay på nr: ${forsale.familyPhoneNo}"
                             $("#modal_body${forsale.weekNo}_${forsale.familyId}").html(str);
 
                             var str2 = "Skriv: '" + amount
-                                + " svømmebilletter til den ${forsale.swimday}' i kommentarfeltet";
+                                + " svømmebilletter til den ${forsale.splitSwimday}' i kommentarfeltet";
                             $("#modal_body2${forsale.weekNo}_${forsale.familyId}").html(str2);
 
-                            var head = "Køb " + amount + " billetter til den ${forsale.swimday}"
+                            var head = "Køb " + amount + " billetter til den ${forsale.splitSwimday}"
                             $("#staticBackdropLabel${forsale.weekNo}_${forsale.familyId}").html(head);
 
 

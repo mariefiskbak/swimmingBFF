@@ -44,7 +44,6 @@ public class Userpage extends Command {
             SalesMapper salesMapper = new SalesMapper(connectionPool1);
             List<ForSaleDTO> forSaleDTOList = salesMapper.getForSaleDTOList();
             session.setAttribute("forSaleDTOList", forSaleDTOList);
-            //TODO, vil kun liste billetter til slag, hvor datoen endnu ikke er nået
 
             return "userpage";
         }

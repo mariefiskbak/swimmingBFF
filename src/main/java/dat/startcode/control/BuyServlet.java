@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @WebServlet(name = "BuyServlet", value = "/BuyServlet")
@@ -24,7 +25,7 @@ public class BuyServlet extends HttpServlet {
         String swimdateCommaFamilyIdS = request.getParameter("buy_id");
         String[] swimdateFamilyIdA = swimdateCommaFamilyIdS.split(",");
         String swimdateS = swimdateFamilyIdA[0];
-        LocalDate swimdate = LocalDate.parse(swimdateS);
+        Timestamp swimdate = Timestamp.valueOf(swimdateS);
         String familyIdS = swimdateFamilyIdA[1];
         int buyFromFamilyId = Integer.parseInt(familyIdS);
         User user = (User) session.getAttribute("user");

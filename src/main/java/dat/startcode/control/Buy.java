@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Buy extends Command {
-    private static final int ticketPrice = 15;
+    private static final int ticketPrice = 16;
     private ConnectionPool connectionPool;
 
     public Buy() {
@@ -35,7 +35,7 @@ public class Buy extends Command {
         String swimdateCommaFamilyIdS = request.getParameter("buy_id");
         String[] swimdateFamilyIdA = swimdateCommaFamilyIdS.split(",");
         String swimdateS = swimdateFamilyIdA[0];
-        LocalDate swimdate = LocalDate.parse(swimdateS);
+        Timestamp swimdate = Timestamp.valueOf(swimdateS);
         String familyIdS = swimdateFamilyIdA[1];
         int buyFromFamilyId = Integer.parseInt(familyIdS);
         User user = (User) session.getAttribute("user");
@@ -59,7 +59,9 @@ public class Buy extends Command {
         MessageMapper messageMapper = new MessageMapper(connectionPool);
         int price = buyAmount * ticketPrice;
         String buyerFamilyName = swimMapper.getFamilyName(buyerFamilyId);
-        String message = buyerFamilyName + " har købt " + buyAmount + " billetter fra dig til den " + swimdateS + ". Du skulle gerne have modtaget " + price + " kr på Mobile Pay.";
+        int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
+        String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+        String message = buyerFamilyName + " har købt " + buyAmount + " billetter fra dig til den " + splitSwimdate + ". Du skulle gerne have modtaget " + price + " kr på Mobile Pay.";
         messageMapper.putMessageInDB(buyFromFamilyId, message);
 
 

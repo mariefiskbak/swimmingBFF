@@ -75,14 +75,13 @@
                     <th scope="col">Dine billetter</th>
                     <th scope="col">Sæt til salg</th>
                     <th scope="col">Sat til salg</th>
-                    <th scope="col">Til salg</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="swimtable" items="${sessionScope.swimTableDTOList}">
                     <tr>
                         <form action="fc/sell">
-                            <td>${swimtable.swimday}</td>
+                            <td>${swimtable.splitSwimday}</td>
                             <td>${swimtable.weekNo}</td>
                             <td>${swimtable.currentTicketAmount} stk</td>
                             <td>
@@ -122,9 +121,6 @@
                                 </div>
                             </td>
                         </form>
-                        <td></td>
-
-
                     </tr>
                 </c:forEach>
                 </tbody>

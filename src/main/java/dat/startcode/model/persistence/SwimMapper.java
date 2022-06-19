@@ -27,19 +27,21 @@ public class SwimMapper {
         List<SwimTableDTO> swimTableDTOList = new ArrayList<>();
         String familyIdS = "" + familyId;
 
-        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? ORDER BY swimming.swimdaytickets.swimdate";
+        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR ORDER BY swimming.swimdaytickets.swimdate";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, familyIdS);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    String swimdateS = "" + rs.getDate("swimdate");
-                    LocalDate swimdate = LocalDate.parse(swimdateS);
+                    String swimdateS = "" + rs.getTimestamp("swimdate");
+                    Timestamp swimdate = Timestamp.valueOf(swimdateS);
                     int weekNo = rs.getInt("week_no");
                     int currentTicketAmount = rs.getInt("current_ticket_amount");
                     int ticketsForSale = rs.getInt("tickets_for_sale");
 
-                    SwimTableDTO swimTableDTO = new SwimTableDTO(swimdate, weekNo, currentTicketAmount, ticketsForSale);
+                    int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    SwimTableDTO swimTableDTO = new SwimTableDTO(swimdate, splitSwimdate, weekNo, currentTicketAmount, ticketsForSale);
                     swimTableDTOList.add(swimTableDTO);
                 }
             }
@@ -51,7 +53,7 @@ public class SwimMapper {
     }
 
 
-    public void sell(LocalDate swimdate, int familyId, int sellAmount, Timestamp timestamp) throws DatabaseException {
+    public void sell(Timestamp swimdate, int familyId, int sellAmount, Timestamp timestamp) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         //Move tickets from currentTicketAmount to ticketsForSale
@@ -81,7 +83,7 @@ public class SwimMapper {
         }
     }
 
-    public void regret(LocalDate swimdate, int familyId, int regretAmount) throws DatabaseException {
+    public void regret(Timestamp swimdate, int familyId, int regretAmount) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         //Move tickets from currentTicketAmount to ticketsForSale
@@ -114,13 +116,13 @@ public class SwimMapper {
 
         List<ForSaleDTO> forSaleDTOList = new ArrayList<>();
 
-        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimdaytickets.family_id, swimming.swimday.week_no, swimming.swimday.team_id, swimming.swimdaytickets.tickets_for_sale, swimming.user.phone_no, swimming.user.name FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate INNER JOIN swimming.user ON swimming.swimdaytickets.family_id=swimming.user.family_id INNER JOIN swimming.family ON swimming.swimdaytickets.family_id=swimming.family.family_id WHERE swimming.swimdaytickets.tickets_for_sale > 0 AND swimming.user.primary_user = 'yes' ORDER BY swimming.swimdaytickets.swimdate ASC, swimming.swimdaytickets.timestamp ASC";
+        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimdaytickets.family_id, swimming.swimday.week_no, swimming.swimday.team_id, swimming.swimdaytickets.tickets_for_sale, swimming.user.phone_no, swimming.user.name FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate INNER JOIN swimming.user ON swimming.swimdaytickets.family_id=swimming.user.family_id INNER JOIN swimming.family ON swimming.swimdaytickets.family_id=swimming.family.family_id WHERE swimming.swimdaytickets.tickets_for_sale > 0 AND swimming.user.primary_user = 'yes' AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR ORDER BY swimming.swimdaytickets.swimdate ASC, swimming.swimdaytickets.timestamp ASC";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    String swimdateS = "" + rs.getDate("swimdate");
-                    LocalDate swimdate = LocalDate.parse(swimdateS);
+                    String swimdateS = "" + rs.getTimestamp("swimdate");
+                    Timestamp swimdate = Timestamp.valueOf(swimdateS);
                     int familyId = rs.getInt("family_id");
                     int weekNo = rs.getInt("week_no");
                     String team = rs.getString("team_id");
@@ -130,7 +132,10 @@ public class SwimMapper {
                     //Timestamp timestamp = rs.getTimestamp("timestamp");
 
                     //ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, familyId, weekNo, ticketsForSaleFromOneFamily, timestamp);
-                    ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, familyId, weekNo, team, ticketsForSaleFromOneFamily, familyPhoneNo, familyName);
+
+                    int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, splitSwimdate, familyId, weekNo, team, ticketsForSaleFromOneFamily, familyPhoneNo, familyName);
                     forSaleDTOList.add(forSaleDTO);
                 }
             }
@@ -147,18 +152,20 @@ public class SwimMapper {
         List<Swimday> swimdayList = new ArrayList<>();
 
 
-        String sql = "SELECT * FROM swimming.swimday ORDER BY swimming.swimday.swimdate ASC";
+        String sql = "SELECT * FROM swimming.swimday WHERE swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR ORDER BY swimming.swimday.swimdate ASC";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    String swimdateS = "" + rs.getDate("swimdate");
-                    LocalDate swimdate = LocalDate.parse(swimdateS);
+                    String swimdateS = "" + rs.getTimestamp("swimdate");
+                    Timestamp swimdate = Timestamp.valueOf(swimdateS);
                     int weekNo = rs.getInt("week_no");
                     String team = rs.getString("team_id");
 
-                    Swimday swimday = new Swimday(swimdate, weekNo, team);
+                    int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    Swimday swimday = new Swimday(splitSwimdate, weekNo, team);
                     swimdayList.add(swimday);
                 }
             }
@@ -170,7 +177,7 @@ public class SwimMapper {
 
     }
 
-    public void buy(LocalDate swimdate, int buyFromFamilyId, int buyAmount, int buyerFamilyId) throws DatabaseException {
+    public void buy(Timestamp swimdate, int buyFromFamilyId, int buyAmount, int buyerFamilyId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         //Move tickets from ticketsForSale from buyFromFamilyId to currentTicketAmount at buyerFamilyId

@@ -12,4 +12,43 @@ th, td {
 }
 
 
+body {
+    width: 100%;
+    max-width: 100%;
+    will-change: position;
+}
+
+/*// Prevent Bootstrap 4.x iOS issue where user
+// scrolls the body behind the modal when body height > 100vh*/
+
+body.modal-open {
+    position: fixed;
+    top:    0;
+    right:  0;
+    bottom: 0;
+    left:   0;
+}
+/*The use of will-change is entirely optional and may be overkill for the devices and browsers you intend to support.
+Use with caution.*/
+
+.modal {
+    will-change: display;
+}
+
+.modal-dialog {
+    will-change: transform;
+}
+/*If I’ve “locked” the modal to a given height (to enable scrolling within the modal content, I’ll generally re-introduce
+a rule to activate that nice “bounce scrolling” effect on iOS. The target element may be different for your application or site.*/
+
+.modal-body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+/*You can further choose to wrap these rules with a condition to target iOS devices only, if required:*/
+
+@supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */
+}
+
 

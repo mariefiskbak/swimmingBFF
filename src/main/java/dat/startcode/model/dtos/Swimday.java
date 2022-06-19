@@ -1,19 +1,20 @@
 package dat.startcode.model.dtos;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Swimday {
-    private LocalDate swimday;
+    private String swimday;
     private int weekNo;
     private String team;
 
-    public Swimday(LocalDate swimday, int weekNo, String team) {
+    public Swimday(String swimday, int weekNo, String team) {
         this.swimday = swimday;
         this.weekNo = weekNo;
         this.team = team;
     }
 
-    public LocalDate getSwimday() {
+    public String getSwimday() {
         return swimday;
     }
 

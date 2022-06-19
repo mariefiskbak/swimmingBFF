@@ -5,7 +5,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class ForSaleDTO {
-    private LocalDate swimday;
+    private Timestamp swimday;
+    private String splitSwimday;
     private int familyId;
     private int weekNo;
     private String team;
@@ -15,8 +16,9 @@ public class ForSaleDTO {
     private String familyName;
 
     //public ForSaleDTO(LocalDate swimday, int familyId, int weekNo, int amountForSaleFromOneFamily, Timestamp timestamp) {
-    public ForSaleDTO(LocalDate swimday, int familyId, int weekNo, String team, int amountForSaleFromOneFamily, int familyPhoneNo, String familyName) {
+    public ForSaleDTO(Timestamp swimday, String splitSwimday, int familyId, int weekNo, String team, int amountForSaleFromOneFamily, int familyPhoneNo, String familyName) {
         this.swimday = swimday;
+        this.splitSwimday = splitSwimday;
         this.familyId = familyId;
         this.weekNo = weekNo;
         this.team = team;
@@ -26,8 +28,12 @@ public class ForSaleDTO {
         //this.timestamp = timestamp;
     }
 
-    public LocalDate getSwimday() {
+    public Timestamp getSwimday() {
         return swimday;
+    }
+
+    public String getSplitSwimday() {
+        return splitSwimday;
     }
 
     public int getFamilyId() {

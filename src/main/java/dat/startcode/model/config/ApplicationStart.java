@@ -82,7 +82,7 @@ public class ApplicationStart implements ServletContextListener
 //SMALL: det virker nemt og hurtigt, MEDIUM: tror godt jeg kan finde ud af det, måske med lidt research. LARGE: Skal enten bruge meget tid, eller meget research.
 //TODO: S: Slette primaryUserEmail i FamilyTabellen
 //TODO: S: Logo og footer på pagetemplate
-//TODO: M: sørge for at der kun bliver listet svømmedage fra i dag og frem. Ikke fra fortiden.
+//DONE: M: sørge for at der kun bliver listet svømmedage fra i dag og frem. Ikke fra fortiden.
 //TODO: M: Lave views i SQL?
 //TODO: M: kryptere passwords
 //DONE: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal. INT UNSIGNED, //TODO: så skal der også exception handling på
@@ -96,8 +96,9 @@ public class ApplicationStart implements ServletContextListener
 //TODO: M: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
 //TODO: XL: Det går galt hvis to køber samtidigt. Beskrevet i Buy.java
 //TODO: XL: Mobilvisning er vigtigt
-//TODO: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
+//DONE: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
 //TODO: L: læse op på syncronized block foran metode, så er der kun en der kan være der af gangen.
 //TODO: L: Lave en ønske-funktion, hvor man kan ønske billetter og folk der vil sælge kan kontakte en direkte på tlf-nummer
 // Synchronized hashmap. Cemaphores..? Concurrent hashmap. API
+//TODO: L: Sætte login log op,,, i -tomcat?
 

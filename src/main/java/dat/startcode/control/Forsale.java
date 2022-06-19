@@ -33,7 +33,6 @@ public class Forsale extends Command {
 
         List<ForSaleDTO> forSaleDTOList = swimMapper.getForSaleDTOList();
         session.setAttribute("forSaleDTOList", forSaleDTOList);
-        //TODO, vil kun liste billetter til salg, hvor datoen endnu ikke er nået
 
         return "forsale";
     }

@@ -64,6 +64,7 @@ public class Reserve extends Command {
         session.setAttribute("familyName", familyName);
         session.setAttribute("familyPhoneNo", familyPhoneNo);
         session.setAttribute("splitSwimday", splitSwimday);
+        session.setAttribute("swimday", swimdate);
         swimMapper.reserve(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId);
 
         return "pay";

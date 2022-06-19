@@ -94,11 +94,14 @@ public class ApplicationStart implements ServletContextListener
 //TODO: L: Exceptionproblem, når noget går galt i en mapper, så kører exceptionen den bare videre til en anden database, og looper. Den skal stoppe.
 //TODO: XL: Fejlhåndtering
 //TODO: M: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
-//TODO: XL: Det går galt hvis to køber samtidigt. Beskrevet i Buy.java
+//DONE: XL: Det går galt hvis to køber samtidigt. Beskrevet i Buy.java
 //TODO: XL: Mobilvisning er vigtigt
 //DONE: L: Sætte det på en online server. Husk at der skal være sikkert kodeord til MySQL og at det ikke må stå i koden.
 //TODO: L: læse op på syncronized block foran metode, så er der kun en der kan være der af gangen.
 //TODO: L: Lave en ønske-funktion, hvor man kan ønske billetter og folk der vil sælge kan kontakte en direkte på tlf-nummer
 // Synchronized hashmap. Cemaphores..? Concurrent hashmap. API
 //TODO: L: Sætte login log op,,, i -tomcat?
+//TODO: L: Generelle problemer hvis folk reloader deres sider
+//TODO: L: Hvordan flytter jeg billetterne tilbage til til-salg fra reserveret, hvis brugeren ikke har trykket fortryd?
+//TODO: M: Virker køb og salg egentlig, hvis ikke brugeren i forvejen har svømmedagen oprettet? Og skal listen sætttes op, så de dage med 0 billetter ikke vises?
 

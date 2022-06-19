@@ -30,31 +30,19 @@ public class Buy extends Command {
         HttpSession session = request.getSession();
 
         SwimMapper swimMapper = new SwimMapper(connectionPool);
-        String buyAmountS = request.getParameter("buy");
-        int buyAmount = Integer.parseInt(buyAmountS);
+//        String buyAmountS = request.getParameter("buy");
+//        int buyAmount = Integer.parseInt(buyAmountS);
         String swimdateCommaFamilyIdS = request.getParameter("buy_id");
         String[] swimdateFamilyIdA = swimdateCommaFamilyIdS.split(",");
         String swimdateS = swimdateFamilyIdA[0];
         Timestamp swimdate = Timestamp.valueOf(swimdateS);
         String familyIdS = swimdateFamilyIdA[1];
         int buyFromFamilyId = Integer.parseInt(familyIdS);
+        int buyAmount = Integer.parseInt(swimdateFamilyIdA[2]);
         User user = (User) session.getAttribute("user");
         int buyerFamilyId = user.getFamilyId();
 
         swimMapper.buy(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
-
-        //TODO Hvis en har trykket KØB, så kan en anden købe billetterne inden der er trykket på JEG HAR OVERFØRT,
-        // og så kan den anden person også få dem, og der kommer rod i databasen og begge har betalt osv.
-        // Jeg gik i gang med at løse det med ny jsp-side Pay, men det er heller ikke godt, for folk kan trykke pil tilbage.
-        // (OBS på refresh og pil tilbage ved Modal i øvrigt).
-        // Databasen skal helst lægge billetterne i en kurv til de er betalt, så de er reserverede og ikke kan købes.
-        // Det kan måske gøres med javascript.
-        // Når man trykker på knappen lægger javascript billetterne over i en reserveret kolonne,
-        // Først når man siger man har betalt ryger de over på ens egen billetrække.
-        // Trykker man fortryd kommer de tilbage til salg.
-        // Hvis brugeren logger ud eller sessionen afbrydes på anden vis skal billetterne også tilbahe til salg
-
-
 
         MessageMapper messageMapper = new MessageMapper(connectionPool);
         int price = buyAmount * ticketPrice;
@@ -65,8 +53,8 @@ public class Buy extends Command {
         messageMapper.putMessageInDB(buyFromFamilyId, message);
 
 
-        Forsale forsale = new Forsale();
-        forsale.execute(request, response);
-        return "forsale";
+        Userpage  userpage = new Userpage();
+        userpage.execute(request, response);
+        return "userpage";
     }
 }

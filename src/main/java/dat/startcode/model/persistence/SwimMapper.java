@@ -180,14 +180,14 @@ public class SwimMapper {
     public void buy(Timestamp swimdate, int buyFromFamilyId, int buyAmount, int buyerFamilyId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
-        //Move tickets from ticketsForSale from buyFromFamilyId to currentTicketAmount at buyerFamilyId
+        //Move tickets from reservedTickets from buyFromFamilyId to currentTicketAmount at buyerFamilyId
 
         String buyAmountS = "" + buyAmount;
         String swimdateS = "" + swimdate;
         String buyFromFamilyIdS = "" + buyFromFamilyId;
         String buyerFamilyIdS = "" + buyerFamilyId;
 
-        String sql = "UPDATE swimming.swimdaytickets SET tickets_for_sale = tickets_for_sale - ? WHERE swimdate = ? AND family_id = ?";
+        String sql = "UPDATE swimming.swimdaytickets SET reserved_tickets = reserved_tickets - ? WHERE swimdate = ? AND family_id = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, buyAmountS);
@@ -275,7 +275,53 @@ public class SwimMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql2)) {
                 ps.setString(1, reserveAmountS);
                 ps.setString(2, swimdateS);
-                ps.setString(3, buyerFamilyIdS);
+                ps.setString(3, buyFromFamilyIdS);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1) {
+
+                } else {
+                    throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+                }
+            }
+        } catch (SQLException | DatabaseException ex) {
+            throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
+        }
+
+    }
+
+    public void regretBuying(Timestamp swimdate, int buyFromFamilyId, int buyAmount, int buyerFamilyId) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        //Move tickets from reservedTickets from buyFromFamilyId to ticketsForSale
+
+        String buyAmountS = "" + buyAmount;
+        String swimdateS = "" + swimdate;
+        String buyFromFamilyIdS = "" + buyFromFamilyId;
+        String buyerFamilyIdS = "" + buyerFamilyId;
+
+        String sql = "UPDATE swimming.swimdaytickets SET reserved_tickets = reserved_tickets - ? WHERE swimdate = ? AND family_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, buyAmountS);
+                ps.setString(2, swimdateS);
+                ps.setString(3, buyFromFamilyIdS);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1) {
+
+                } else {
+                    throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+                }
+            }
+        } catch (SQLException | DatabaseException ex) {
+            throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
+        }
+
+        String sql2 = "UPDATE swimming.swimdaytickets SET tickets_for_sale = tickets_for_sale + ? WHERE swimdate = ? AND family_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql2)) {
+                ps.setString(1, buyAmountS);
+                ps.setString(2, swimdateS);
+                ps.setString(3, buyFromFamilyIdS);
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1) {
 

@@ -20,18 +20,17 @@
       <br> <br>
       Skriv "${sessionScope.reservedAmount} svømmebilletter til den ${sessionScope.splitSwimday}" i kommentarfeltet.
       <br> <br>
-<%--      //TODO Knappen skal købe billetterne for alvor og også lave købsbeskeden--%>
-      <form action="fc/buyMessage" method="post">
-          <input type="hidden" name="command" value="buyMessage"/>
+      <form action="fc/buy" method="post">
+          <input type="hidden" name="command" value="buy"/>
           <button type="submit" class="btn btn-primary" name="buy_id"
-                  value="${sessionScope.splitSwimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">Jeg har overført nu
+                  value="${sessionScope.swimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">Jeg har overført nu
           </button>
       </form>
       <br>
 <%--      //TODO denne knap skal også virke--%>
       <form action="fc/regretBuying" method="post">
           <input type="hidden" name="command" value="regretBuying"/>
-          <button type="submit" class="btn btn-secondary" value="${sessionScope.splitSwimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">
+          <button type="submit" class="btn btn-secondary" name="regret_id" value="${sessionScope.swimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">
               Fortryd køb
           </button>
       </form>

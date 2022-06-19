@@ -53,9 +53,9 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link"
-                       href="${pageContext.request.contextPath}/fc/about?command=about">About</a>
+                       href="${pageContext.request.contextPath}/fc/about?command=about">Om</a>
                     <c:if test="${sessionScope.user == null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Log ind</a>
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
                         <a class="nav-item nav-link"
@@ -63,7 +63,7 @@
                         <a class="nav-item nav-link"
                            href="${pageContext.request.contextPath}/fc/forsale?command=forsale">Til salg</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log
-                            out</a>
+                            ud</a>
                     </c:if>
                 </div>
             </div>

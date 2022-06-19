@@ -51,11 +51,11 @@
                                                    max="${forsale.amountForSaleFromOneFamily}"/>
                                         </div>
                                         <div class="col">
-                                            <!-- Button buy -->
-                                            <input type="hidden" name="command" value="reserve"/>
-                                            <button type="submit" name="reservebutton" class="btn btn-outline-secondary"
-                                                    formaction="fc/reserve" formmethod="post"
-                                                    value="${forsale.swimday},${forsale.familyId},${forsale.familyName},${forsale.familyPhoneNo},${forsale.splitSwimday}"
+                                            <!-- Button trigger modal -->
+                                            <button type="button" name="buybutton" class="btn btn-outline-secondary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop${forsale.weekNo}_${forsale.familyId}"
+                                                    value="${forsale.swimday},${forsale.familyId}"
                                                     id="submit${forsale.weekNo}_${forsale.familyId}">
                                                 Køb
                                             </button>

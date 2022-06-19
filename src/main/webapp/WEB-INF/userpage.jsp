@@ -15,9 +15,30 @@
 
     <jsp:body>
 
+
         <br>
-        <h3>${sessionScope.name}</h3>
-        <p>Mobile pay nr: ${sessionScope.user.phoneNo}</p>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>${sessionScope.name}</h3>
+                    <p>Mobile pay nr: ${sessionScope.user.phoneNo}</p>
+                </div>
+                <div class="col">
+                    <form action="fc/forsale" method="post">
+                        <input type="hidden" name="command" value="forsale"/>
+                        <input type="submit" value="Se billetter til salg"/>
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="fc/" method="post">
+                        <input type="hidden" name="command" value=""/>
+                        <input type="submit" value="Ønsk billetter"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
         <br>
         <h3>Beskeder</h3>
@@ -40,9 +61,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="hidden" name="command" value="deletemessage"/>
-                                            <button type="submit" class="btn btn-outline-secondary" name="deletemessage" id="deletemessage${messages.messageId}"
-                                                   value="${messages.messageId}"
-                                            >Læst</button>
+                                            <button type="submit" class="btn btn-outline-secondary" name="deletemessage"
+                                                    id="deletemessage${messages.messageId}"
+                                                    value="${messages.messageId}"
+                                            >Læst
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -57,10 +80,6 @@
 
         <br>
 
-        <form action="fc/forsale" method="post">
-            <input type="hidden" name="command" value="forsale"/>
-            <input type="submit" value="Se billetter til salg"/>
-        </form>
 
         <br>
 

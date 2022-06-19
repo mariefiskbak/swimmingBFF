@@ -62,4 +62,19 @@ public class ForSaleDTO {
     public Timestamp getTimestamp() {
         return timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "ForSaleDTO{" +
+                "swimday=" + swimday +
+                ", splitSwimday='" + splitSwimday + '\'' +
+                ", familyId=" + familyId +
+                ", weekNo=" + weekNo +
+                ", team='" + team + '\'' +
+                ", amountForSaleFromOneFamily=" + amountForSaleFromOneFamily +
+                ", timestamp=" + timestamp +
+                ", familyPhoneNo=" + familyPhoneNo +
+                ", familyName='" + familyName + '\'' +
+                '}';
+    }
 }

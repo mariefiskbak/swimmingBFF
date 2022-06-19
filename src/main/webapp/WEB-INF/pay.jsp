@@ -15,93 +15,27 @@
 
   <jsp:body>
 
-      Overfør X kr til Navn via Mobile Pay på tlf nr: XXXXXXXX
-
-      Skriv "X svømmebilletter til den DATO" i kommentarfeltet.
-
-      <form action="fc/buyMessage">
+      <br>
+      Overfør ${sessionScope.reservedAmount * 16} kr til ${sessionScope.familyName} via Mobile Pay på tlf nr: ${sessionScope.familyPhoneNo}
+      <br> <br>
+      Skriv "${sessionScope.reservedAmount} svømmebilletter til den ${sessionScope.splitSwimday}" i kommentarfeltet.
+      <br> <br>
+<%--      //TODO Knappen skal købe billetterne for alvor og også lave købsbeskeden--%>
+      <form action="fc/buyMessage" method="post">
           <input type="hidden" name="command" value="buyMessage"/>
           <button type="submit" class="btn btn-primary" name="buy_id"
-                  value="2022-06-03,1">Jeg har overført nu
+                  value="${sessionScope.splitSwimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">Jeg har overført nu
           </button>
       </form>
-
-      <form action="fc/regretBuying">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="regretBuying">
+      <br>
+<%--      //TODO denne knap skal også virke--%>
+      <form action="fc/regretBuying" method="post">
+          <input type="hidden" name="command" value="regretBuying"/>
+          <button type="submit" class="btn btn-secondary" value="${sessionScope.splitSwimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">
               Fortryd køb
           </button>
       </form>
-
-      <%--<div class="modal fade" id="staticBackdrop${forsale.weekNo}_${forsale.familyId}"
-      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}"
-      aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title"
-                      id="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}">
-                  </h5>
-              </div>
-              <div class="modal-body">
-                  <p id="modal_body${forsale.weekNo}_${forsale.familyId}"></p>
-                  <p id="modal_body2${forsale.weekNo}_${forsale.familyId}"></p>
-              </div>
-              <div class="modal-footer">
-                  <form action="fc/buyMessage">
-                      <input type="hidden" name="command" value="buyMessage"/>
-                      <button type="submit" class="btn btn-primary" name="buy_id"
-                              value="${forsale.swimday},${forsale.familyId}">Jeg har overført
-                          nu
-                      </button>
-                  </form>
-                  <form action="fc/regretBuying">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="regretBuying">
-                          Fortryd køb
-                      </button>
-                  </form>
-              </div>
-          </div>
-      </div>
-      </div>--%>
-      <div class="modal fade" id="staticBackdrop1_1"
-           data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-           aria-labelledby="staticBackdropLabel1_1"
-           aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title"
-                          id="staticBackdropLabel1_1">
-                          Her er titlen
-                      </h5>
-                  </div>
-                  <div class="modal-body">
-                      Her er kroppen
-                      <p id="modal_body1_1"></p>
-                      <p id="modal_body21_1"></p>
-                  </div>
-                  <div class="modal-footer">
-                      <form action="fc/buyMessage">
-                          <input type="hidden" name="command" value="buyMessage"/>
-                          <button type="submit" class="btn btn-primary" name="buy_id"
-                                  value="2022-06-03,1">Jeg har overført
-                              nu
-                          </button>
-                      </form>
-                      <form action="fc/regretBuying">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="regretBuying">
-                              Fortryd køb
-                          </button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <script>
-          $(document).ready(function(){
-              $("#staticBackdrop1_1").showModal();
-          });
-      </script>
+    <%--  //TODO hvis folk forlader siden uden at trykke fortryd, hvordan kommer billetterne så tilbage til salg?
+      //TODO kan folk lave rav i den med URL-hacking?--%>
   </jsp:body>
 </t:pagetemplate>

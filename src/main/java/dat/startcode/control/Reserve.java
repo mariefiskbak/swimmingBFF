@@ -14,14 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Reserve extends Command {
     private ConnectionPool connectionPool;
+    private Boolean ticketsHaveBeenMoved = false;
 
     public Reserve() {
         this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
+    public Boolean getTicketsHaveBeenMoved() {
+        return ticketsHaveBeenMoved;
+    }
+
+    public void setTicketsHaveBeenMoved(Boolean ticketsHaveBeenMoved) {
+        this.ticketsHaveBeenMoved = ticketsHaveBeenMoved;
     }
 
     @Override
@@ -65,7 +75,13 @@ public class Reserve extends Command {
         session.setAttribute("familyPhoneNo", familyPhoneNo);
         session.setAttribute("splitSwimday", splitSwimday);
         session.setAttribute("swimday", swimdate);
+
         swimMapper.reserve(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId);
+
+        //Starts a new thread that after 4 minutes, moves the tickets back from reserved_tickets to _tickets_for_sale.
+        //It works!! //TODO der skal komme en informativ fejl frem, hvis man så trykker på køb efter tiden er gået
+        Thread thread = new Thread(new TestRunnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, ticketsHaveBeenMoved, connectionPool));
+        thread.start();
 
         return "pay";
     }

@@ -34,7 +34,39 @@
               Fortryd køb
           </button>
       </form>
-    <%--  //TODO hvis folk forlader siden uden at trykke fortryd, hvordan kommer billetterne så tilbage til salg?
-      //TODO kan folk lave rav i den med URL-hacking?--%>
+    <%-- //TODO kan folk lave rav i den med URL-hacking?--%>
+      <br>
+      <div>Billetterne er reserverede i <span id="timer"></span> minutter</div>
+
+      <script>
+          document.getElementById('timer').innerHTML = 4 + ":" + 00;
+          startTimer();
+
+
+          function startTimer() {
+              var presentTime = document.getElementById('timer').innerHTML;
+              var timeArray = presentTime.split(/[:]+/);
+              var m = timeArray[0];
+              var s = checkSecond((timeArray[1] - 1));
+              if(s==59){m=m-1}
+              if(m<0){
+                  return
+              }
+
+              document.getElementById('timer').innerHTML =
+                  m + ":" + s;
+              console.log(m)
+              setTimeout(startTimer, 1000);
+
+          }
+
+          function checkSecond(sec) {
+              if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+              if (sec < 0) {sec = "59"};
+              return sec;
+          }
+          <%-- //TODO Vil være fit hvis man bliver dirigeret tilbage til til-salg-siden når timeret er udløbet--%>
+      </script>
+
   </jsp:body>
 </t:pagetemplate>

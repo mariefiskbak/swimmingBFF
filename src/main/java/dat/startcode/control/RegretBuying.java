@@ -39,6 +39,8 @@ public class RegretBuying extends Command {
         int buyerFamilyId = user.getFamilyId();
 
         swimMapper.regretBuying(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
+        Reserve reserve = new Reserve();
+        reserve.setTicketsHaveBeenMoved(true);
 
         Forsale forsale = new Forsale();
         forsale.execute(request, response);

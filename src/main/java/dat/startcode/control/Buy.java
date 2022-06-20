@@ -43,6 +43,8 @@ public class Buy extends Command {
         int buyerFamilyId = user.getFamilyId();
 
         swimMapper.buy(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
+        Reserve reserve = new Reserve();
+        reserve.setTicketsHaveBeenMoved(true);
 
         MessageMapper messageMapper = new MessageMapper(connectionPool);
         int price = buyAmount * ticketPrice;

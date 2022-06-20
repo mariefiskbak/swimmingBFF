@@ -27,7 +27,7 @@ public class SwimMapper {
         List<SwimTableDTO> swimTableDTOList = new ArrayList<>();
         String familyIdS = "" + familyId;
 
-        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR ORDER BY swimming.swimdaytickets.swimdate";
+        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR AND (swimming.swimdaytickets.current_ticket_amount > 0 OR swimming.swimdaytickets.tickets_for_sale > 0) ORDER BY swimming.swimdaytickets.swimdate";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, familyIdS);

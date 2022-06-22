@@ -5,7 +5,6 @@ import dat.startcode.model.entities.TicketsHaveBeenMoved;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.MessageMapper;
 import dat.startcode.model.persistence.SwimMapper;
 
 import javax.servlet.ServletException;
@@ -40,8 +39,8 @@ public class RegretBuying extends Command {
         int buyerFamilyId = user.getFamilyId();
 
         swimMapper.regretBuying(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
-        TicketsHaveBeenMoved t = new TicketsHaveBeenMoved(true);
-        //t.setTicketsHaveBeenMoved(true);
+        TicketsHaveBeenMoved t = (TicketsHaveBeenMoved) session.getAttribute("ticketsHaveBeenMoved");
+        t.setTicketsHaveBeenMoved(true);
 
         Forsale forsale = new Forsale();
         forsale.execute(request, response);

@@ -1,11 +1,9 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
-import dat.startcode.model.dtos.ForSaleDTO;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.MessageMapper;
 import dat.startcode.model.persistence.SwimMapper;
 
 import javax.servlet.ServletException;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,7 +69,7 @@ public class Reserve extends Command {
 
         //Starts a new thread that after 4 minutes, moves the tickets back from reserved_tickets to _tickets_for_sale.
         //It works!!
-        Thread thread = new Thread(new TestRunnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, connectionPool));
+        Thread thread = new Thread(new Runnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, connectionPool, session));
         thread.start();
 
         return "pay";

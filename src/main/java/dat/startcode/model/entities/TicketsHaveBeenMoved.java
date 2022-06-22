@@ -1,6 +1,8 @@
 package dat.startcode.model.entities;
 
-static class TicketsHaveBeenMoved {
+import javax.servlet.http.HttpSession;
+
+public class TicketsHaveBeenMoved {
     private Boolean ticketsHaveBeenMoved;
 
     public TicketsHaveBeenMoved(Boolean ticketsHaveBeenMoved) {

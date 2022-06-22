@@ -1,6 +1,7 @@
 package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.entities.TicketsHaveBeenMoved;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -39,8 +40,8 @@ public class RegretBuying extends Command {
         int buyerFamilyId = user.getFamilyId();
 
         swimMapper.regretBuying(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
-        Reserve reserve = new Reserve();
-        reserve.setTicketsHaveBeenMoved(true);
+        TicketsHaveBeenMoved t = new TicketsHaveBeenMoved(true);
+        //t.setTicketsHaveBeenMoved(true);
 
         Forsale forsale = new Forsale();
         forsale.execute(request, response);

@@ -29,7 +29,6 @@
                 <tr>
                     <th scope="col">Dato</th>
                     <th scope="col">Uge nr</th>
-                    <th scope="col">Hold Id</th>
                     <th scope="col">Til salg</th>
                 </tr>
                 </thead>
@@ -39,7 +38,6 @@
                         <form action="fc/buy">
                             <td>${forsale.splitSwimday}</td>
                             <td>${forsale.weekNo}</td>
-                            <td>${forsale.team}</td>
                             <td>
                                 <div class="container">
                                     <div class="row">
@@ -63,7 +61,7 @@
                                     </div>
                                 </div>
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop${forsale.weekNo}_${forsale.familyId}"
+                                <%--<div class="modal fade" id="staticBackdrop${forsale.weekNo}_${forsale.familyId}"
                                      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                      aria-labelledby="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}"
                                      aria-hidden="true">
@@ -73,8 +71,8 @@
                                                 <h5 class="modal-title"
                                                     id="staticBackdropLabel${forsale.weekNo}_${forsale.familyId}">
                                                 </h5>
-                                                    <%--                                                <button type="button" class="btn-close" data-bs-dismiss="modal"--%>
-                                                    <%--                                                        aria-label="Close"></button>--%>
+                                                    &lt;%&ndash;                                                <button type="button" class="btn-close" data-bs-dismiss="modal"&ndash;%&gt;
+                                                    &lt;%&ndash;                                                        aria-label="Close"></button>&ndash;%&gt;
                                             </div>
                                             <div class="modal-body">
                                                 <p id="modal_body${forsale.weekNo}_${forsale.familyId}"></p>
@@ -92,12 +90,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
                             </td>
                         </form>
                     </tr>
 
-                    <%--                                                Burde lave 15 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
+                    <%--   Burde lave 16 til en konstant(ticketPrice), kan jeg undgå at gøre det mere en ét sted i koden?--%>
                     <script type="text/javascript">
                         $("#submit${forsale.weekNo}_${forsale.familyId}").click(function () {
                             var amount = $("#buy${forsale.weekNo}_${forsale.familyId}").val();
@@ -112,30 +110,12 @@
 
                             var head = "Køb " + amount + " billetter til den ${forsale.splitSwimday}"
                             $("#staticBackdropLabel${forsale.weekNo}_${forsale.familyId}").html(head);
-
-
                         });
-
                     </script>
 
-
-<%--                    VIRKER IKKE HER, Den fanger måske ikke parameteren, og den tjekker nok heller ikke på runtime, virker når den er under nedenstående besked--%>
-                    <c:if test="${param.buybutton != null}">
-                        <sql:setDataSource var="reserve" driver="com.mysql.jdbc.Driver"
-                                           url="jdbc:mysql://localhost:3306/swimming"
-                                           user="root" password="root"/>
-                        <sql:update dataSource="${reserve}" var="count">
-                            UPDATE swimming.swimdaytickets SET tickets_for_sale = tickets_for_sale - 1, reserved_tickets = reserved_tickets + 1 WHERE family_id = 1 AND swimdate = 20220603;
-                        </sql:update>
-                    </c:if>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
-
-        <%--         Virker, men slet ikke som jeg vil have det--%>
-
-        <%--        Til sikring mod to der køber samtidigt:--%>
-        <%--        egentlig skal databasen ændres tilbage ved KØB, og ændres tilbage ved FORTRYD, og så først ved JEG HAR OVERFØRT skal beskeden laves--%>
     </jsp:body>
 </t:pagetemplate>

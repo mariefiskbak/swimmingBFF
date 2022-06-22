@@ -20,19 +20,11 @@ import java.util.logging.Logger;
 
 public class Reserve extends Command {
     private ConnectionPool connectionPool;
-    private Boolean ticketsHaveBeenMoved = false;
 
     public Reserve() {
         this.connectionPool = ApplicationStart.getConnectionPool();
     }
 
-    public Boolean getTicketsHaveBeenMoved() {
-        return ticketsHaveBeenMoved;
-    }
-
-    public void setTicketsHaveBeenMoved(Boolean ticketsHaveBeenMoved) {
-        this.ticketsHaveBeenMoved = ticketsHaveBeenMoved;
-    }
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws DatabaseException, ServletException, IOException {
@@ -79,8 +71,8 @@ public class Reserve extends Command {
         swimMapper.reserve(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId);
 
         //Starts a new thread that after 4 minutes, moves the tickets back from reserved_tickets to _tickets_for_sale.
-        //It works!! //TODO der skal komme en informativ fejl frem, hvis man så trykker på køb efter tiden er gået
-        Thread thread = new Thread(new TestRunnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, ticketsHaveBeenMoved, connectionPool));
+        //It works!!
+        Thread thread = new Thread(new TestRunnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, connectionPool));
         thread.start();
 
         return "pay";

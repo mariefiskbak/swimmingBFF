@@ -10,7 +10,7 @@ public class UnknownCommand extends Command {
     @Override
     String execute( HttpServletRequest request, HttpServletResponse response ) throws DatabaseException
     {
-        String msg = "Unknown command. Contact IT";
+        String msg = "Du opdaterede garanteret siden, det er mit program ikke bygget til.. endnu i hvert fald";
         throw new DatabaseException( msg );
     }
 

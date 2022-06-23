@@ -31,7 +31,7 @@ public class Runnable implements java.lang.Runnable {
         try {
             TicketsHaveBeenMoved t = new TicketsHaveBeenMoved(false);
             session.setAttribute("ticketsHaveBeenMoved", t);
-            TimeUnit.MINUTES.sleep(1);
+            TimeUnit.MINUTES.sleep(4);
             t = (TicketsHaveBeenMoved) session.getAttribute("ticketsHaveBeenMoved");
             if(!t.getTicketsHaveBeenMoved()) {
                 SwimMapper swimMapper = new SwimMapper(connectionPool);

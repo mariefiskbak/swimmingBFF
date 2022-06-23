@@ -31,8 +31,8 @@
                     </form>
                 </div>
                 <div class="col">
-                    <form action="fc/" method="post">
-                        <input type="hidden" name="command" value=""/>
+                    <form action="fc/wishfortickets" method="post">
+                        <input type="hidden" name="command" value="wishfortickets"/>
                         <input type="submit" value="Ønsk billetter"/>
                     </form>
                 </div>

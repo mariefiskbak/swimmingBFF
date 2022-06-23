@@ -29,6 +29,8 @@ abstract class Command
         commands.put("regretBuying", new RegretBuying());
         commands.put("pay", new Pay());
         commands.put("reserve", new Reserve());
+        commands.put("wishfortickets", new WishForTickets());
+        commands.put("wish", new Wish());
     }
 
     static Command from( HttpServletRequest request ) {

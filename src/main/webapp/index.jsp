@@ -46,7 +46,10 @@
                 </tbody>
             </table>
         </div>
-
+        <br><br>
+        <p>Svømmehallens bookingside: <a href="https://www.conventus.dk/dataudv/www/booking_v2.php?start=06%3A00&slut=22%3A00&forening=3602&navn=skjul&ressourcer=vis&banebooking=vis&login_boks=vis&handelsbetingelser=vis&alt_farver=skjul#uge/lodret/6925;27655/2022-06-23"
+        target="_blank">
+            Conventus</a></p>
     </jsp:body>
 
 </t:pagetemplate>

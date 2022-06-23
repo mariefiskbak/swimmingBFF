@@ -85,6 +85,7 @@ public class ApplicationStart implements ServletContextListener
 //DONE: M: sørge for at der kun bliver listet svømmedage fra i dag og frem. Ikke fra fortiden.
 //TODO: M: Lave views i SQL?
 //TODO: M: kryptere passwords
+//TODO: M: Frontcontrolleren laver /fc/fc/fc/fc/fc i url'en efter nogle clicks.
 //DONE: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal. INT UNSIGNED, //TODO: så skal der også exception handling på
 //TODO: M: Gøre primaryUser i User til binær??
 //TODO: M: Sætte nogle flere auto increment og automatisk zero?
@@ -102,6 +103,14 @@ public class ApplicationStart implements ServletContextListener
 // Synchronized hashmap. Cemaphores..? Concurrent hashmap. API
 //TODO: L: Sætte login log op,,, i -tomcat?
 //TODO: L: Generelle problemer hvis folk reloader deres sider
-//TODO: L: Hvordan flytter jeg billetterne tilbage til til-salg fra reserveret, hvis brugeren ikke har trykket fortryd?
+//DONE: L: Hvordan flytter jeg billetterne tilbage til til-salg fra reserveret, hvis brugeren ikke har trykket fortryd?
 //TODO: M: Virker køb og salg egentlig, hvis ikke brugeren i forvejen har svømmedagen oprettet? Og skal listen sætttes op, så de dage med 0 billetter ikke vises?
+
+//TODO: 1: Sætte ønskebillet-funktionen op. Hvis nogen sætter noget til salg en dag, hvor nogen har ønsket, får de besked på at sende en sms.
+//TODO: 2: Lave admin-side så dele af databasen atomatisk bliver udfyldt.
+//TODO: 3: Fejlhåndtering
+//TODO: 4: Smukkesere siden med CSS + mobilvenlig
+//TODO: 5: Finde ud af hvad dropletten præcist koster og om den er stabil
+//TODO: 6: få bedre URL?
+//TODO: 7: Lægge koden op i Tomcat igen
 

@@ -62,6 +62,8 @@
                            href="${pageContext.request.contextPath}/fc/userpage?command=userpage">Medlemsside</a>
                         <a class="nav-item nav-link"
                            href="${pageContext.request.contextPath}/fc/forsale?command=forsale">Til salg</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/fc/wishfortickets?command=wishfortickets">Ønsk billetter</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log
                             ud</a>
                     </c:if>

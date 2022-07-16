@@ -32,7 +32,7 @@
                 <tr>
                     <th scope="col">Dato</th>
                     <th scope="col">Uge nr</th>
-                    <th scope="col">Hold Id</th>
+                    <th scope="col">Hold ID</th>
                 </tr>
                 </thead>
                 <tbody>

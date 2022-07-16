@@ -27,7 +27,7 @@ public class SwimMapper {
         List<SwimTableDTO> swimTableDTOList = new ArrayList<>();
         String familyIdS = "" + familyId;
 
-        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR AND (swimming.swimdaytickets.current_ticket_amount > 0 OR swimming.swimdaytickets.tickets_for_sale > 0) ORDER BY swimming.swimdaytickets.swimdate";
+        String sql = "SELECT swimming.swimdaytickets.swimdate, swimming.swimday.week_no, swimming.swimday.team_id, swimming.swimdaytickets.current_ticket_amount, swimming.swimdaytickets.tickets_for_sale FROM swimming.swimdaytickets INNER JOIN swimming.swimday ON swimming.swimdaytickets.swimdate=swimming.swimday.swimdate WHERE swimming.swimdaytickets.family_id = ? AND swimming.swimday.swimdate >= NOW() - INTERVAL 1 HOUR AND (swimming.swimdaytickets.current_ticket_amount > 0 OR swimming.swimdaytickets.tickets_for_sale > 0) ORDER BY swimming.swimdaytickets.swimdate";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, familyIdS);
@@ -36,12 +36,13 @@ public class SwimMapper {
                     String swimdateS = "" + rs.getTimestamp("swimdate");
                     Timestamp swimdate = Timestamp.valueOf(swimdateS);
                     int weekNo = rs.getInt("week_no");
+                    String teamID = rs.getString("team_id");
                     int currentTicketAmount = rs.getInt("current_ticket_amount");
                     int ticketsForSale = rs.getInt("tickets_for_sale");
 
                     int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
                     String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
-                    SwimTableDTO swimTableDTO = new SwimTableDTO(swimdate, splitSwimdate, weekNo, currentTicketAmount, ticketsForSale);
+                    SwimTableDTO swimTableDTO = new SwimTableDTO(swimdate, splitSwimdate, weekNo, teamID, currentTicketAmount, ticketsForSale);
                     swimTableDTOList.add(swimTableDTO);
                 }
             }

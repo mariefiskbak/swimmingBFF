@@ -37,18 +37,30 @@
                 </thead>
                 <tbody>
                 <c:forEach var="swimday" items="${sessionScope.swimdayList}">
-                    <tr>
-                            <td>${swimday.swimday}</td>
-                            <td>${swimday.weekNo}</td>
-                            <td>${swimday.team}</td>
+                    <c:if test="${swimday.team == 'lige uge fre 9-10'}">
+                        <tr style="background-color: rgba(18,16,255,0.19)">
+                    </c:if>
+                    <c:if test="${swimday.team == 'lige uge fre 10-11'}">
+                        <tr style="background-color: rgba(50,205,50,0.37)">
+                    </c:if>
+                    <c:if test="${swimday.team == 'ulige uge fre 9-10'}">
+                        <tr style="background-color: rgba(255,255,0,0.38)">
+                    </c:if>
+                    <c:if test="${swimday.team == 'ulige uge fre 10-11'}">
+                        <tr style="background-color: rgba(255,0,0,0.26)">
+                    </c:if>
+                    <td>${swimday.swimday}</td>
+                    <td>${swimday.weekNo}</td>
+                    <td>${swimday.team}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
         <br><br>
-        <p>Svømmehallens bookingside: <a href="https://www.conventus.dk/dataudv/www/booking_v2.php?start=06%3A00&slut=22%3A00&forening=3602&navn=skjul&ressourcer=vis&banebooking=vis&login_boks=vis&handelsbetingelser=vis&alt_farver=skjul#uge/lodret/6925;27655/2022-06-23"
-        target="_blank">
+        <p>Svømmehallens bookingside: <a
+                href="https://www.conventus.dk/dataudv/www/booking.php?idv1=1&idv2=06:00&idv3=22:00&idv4=6925&idv5=3602&navn=skjul&ressourceliste=vis&banebooking=vis&login_boks=vis&handelsbetingelser=vis&engine_error=vis"
+                target="_blank">
             Conventus</a></p>
     </jsp:body>
 

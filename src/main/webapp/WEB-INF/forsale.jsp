@@ -34,7 +34,18 @@
                 </thead>
                 <tbody>
                 <c:forEach var="forsale" items="${sessionScope.forSaleDTOList}">
-                    <tr>
+                    <c:if test="${forsale.team == 'lige uge fre 9-10'}">
+                        <tr style="background-color: rgba(18,16,255,0.19)">
+                    </c:if>
+                    <c:if test="${forsale.team == 'lige uge fre 10-11'}">
+                        <tr style="background-color: rgba(50,205,50,0.37)">
+                    </c:if>
+                    <c:if test="${forsale.team == 'ulige uge fre 9-10'}">
+                        <tr style="background-color: rgba(255,255,0,0.38)">
+                    </c:if>
+                    <c:if test="${forsale.team == 'ulige uge fre 10-11'}">
+                        <tr style="background-color: rgba(255,0,0,0.26)">
+                    </c:if>
                         <form action="fc/buy">
                             <td>${forsale.splitSwimday}</td>
                             <td>${forsale.weekNo}</td>

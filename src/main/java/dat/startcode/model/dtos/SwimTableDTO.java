@@ -10,13 +10,15 @@ public class SwimTableDTO {
     private Timestamp swimday;
     private String splitSwimday;
     private int weekNo;
+    private String teamID;
     private int currentTicketAmount;
     private int ticketsForSale;
 
-    public SwimTableDTO(Timestamp swimday, String splitSwimday, int weekNo, int currentTicketAmount, int ticketsForSale) {
+    public SwimTableDTO(Timestamp swimday, String splitSwimday, int weekNo, String teamID, int currentTicketAmount, int ticketsForSale) {
         this.swimday = swimday;
         this.splitSwimday = splitSwimday;
         this.weekNo = weekNo;
+        this.teamID = teamID;
         this.currentTicketAmount = currentTicketAmount;
         this.ticketsForSale = ticketsForSale;
     }
@@ -35,6 +37,10 @@ public class SwimTableDTO {
 
     public int getWeekNo() {
         return weekNo;
+    }
+
+    public String getTeamId() {
+        return teamID;
     }
 
     public int getCurrentTicketAmount() {

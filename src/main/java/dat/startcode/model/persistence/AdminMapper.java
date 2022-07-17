@@ -67,4 +67,32 @@ public class AdminMapper {
             throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
         }
     }
+
+    public void insertUsers() throws DatabaseException {
+
+        //String sql insert user
+
+        // For each swimming.swimday.swimdate skal den sætte alle dagene på med 0 billetter
+        // Det ovenfor vil give ca 2000 rækker i tabellen. Alternativt, så inden folk køber billetter, så tjekker den om de
+        //hAR Nogle swimdaytickets og hvis ikke opretter den en række...
+        //Alternativet er fixet nu
+
+
+//        String sql = "INSERT INTO swimming.swimdaytickets (swimdate, family_id, current_ticket_amount) VALUES (?, ?, ?)";
+//        try (Connection connection = connectionPool.getConnection()) {
+//            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+//                ps.setString(1, swimdates);
+//                ps.setInt(2, familyID);
+//                ps.setInt(3, 0);
+//                int rowsAffected = ps.executeUpdate();
+//                if (rowsAffected == 1) {
+//
+//                } else {
+//                    throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+//                }
+//            }
+//        } catch (SQLException | DatabaseException ex) {
+//            throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
+//        }
+    }
 }

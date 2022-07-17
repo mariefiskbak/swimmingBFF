@@ -41,7 +41,7 @@ public class SwimMapper {
                     int ticketsForSale = rs.getInt("tickets_for_sale");
 
                     int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
-                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5, 7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
                     SwimTableDTO swimTableDTO = new SwimTableDTO(swimdate, splitSwimdate, weekNo, teamID, currentTicketAmount, ticketsForSale);
                     swimTableDTOList.add(swimTableDTO);
                 }
@@ -135,7 +135,7 @@ public class SwimMapper {
                     //ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, familyId, weekNo, ticketsForSaleFromOneFamily, timestamp);
 
                     int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
-                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5, 7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
                     ForSaleDTO forSaleDTO = new ForSaleDTO(swimdate, splitSwimdate, familyId, weekNo, team, ticketsForSaleFromOneFamily, familyPhoneNo, familyName);
                     forSaleDTOList.add(forSaleDTO);
                 }
@@ -165,7 +165,7 @@ public class SwimMapper {
                     String team = rs.getString("team_id");
 
                     int toTime = Integer.parseInt(swimdateS.substring(11, 13)) + 1;
-                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5,7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
+                    String splitSwimdate = swimdateS.substring(8, 10) + "/" + swimdateS.substring(5, 7) + " : " + swimdateS.substring(11, 13) + "-" + toTime;
                     Swimday swimday = new Swimday(splitSwimdate, weekNo, team);
                     swimdayList.add(swimday);
                 }
@@ -187,6 +187,38 @@ public class SwimMapper {
         String swimdateS = "" + swimdate;
         String buyFromFamilyIdS = "" + buyFromFamilyId;
         String buyerFamilyIdS = "" + buyerFamilyId;
+
+        //But first Check wether buyer has any swimdaytickets
+        String sqlCheck = "SELECT * FROM swimming.swimdaytickets WHERE swimdate = ? AND family_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqlCheck)) {
+                ps.setString(1, swimdateS);
+                ps.setString(2, buyerFamilyIdS);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) {
+
+                //If empty, then create a row
+                    String sqlCreate = "INSERT INTO swimming.swimdaytickets (swimdate, family_id, current_ticket_amount) VALUES (?, ?, ?)";
+                    try (Connection connection2 = connectionPool.getConnection()) {
+                        try (PreparedStatement ps2 = connection2.prepareStatement(sqlCreate)) {
+                            ps2.setString(1, swimdateS);
+                            ps2.setString(2, buyerFamilyIdS);
+                            ps2.setString(3, "0");
+                            int rowsAffected = ps2.executeUpdate();
+                            if (rowsAffected == 1) {
+                            } else {
+                                throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+                            }
+                        }
+                    } catch (SQLException | DatabaseException exe) {
+                        throw new DatabaseException(exe, "Kunne ikke opdatere svømmebilletter");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+
+        }
+
 
         String sql = "UPDATE swimming.swimdaytickets SET reserved_tickets = reserved_tickets - ? WHERE swimdate = ? AND family_id = ?";
         try (Connection connection = connectionPool.getConnection()) {

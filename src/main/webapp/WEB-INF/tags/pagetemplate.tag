@@ -67,7 +67,7 @@
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log
                             ud</a>
                     </c:if>
-                    <c:if test="${sessionScope.user != null }">
+                    <c:if test="${sessionScope.user.role == 'admin'}">
                         <a class="nav-item nav-link"
                            href="${pageContext.request.contextPath}/fc/admin?command=admin">Adminside</a>
                     </c:if>

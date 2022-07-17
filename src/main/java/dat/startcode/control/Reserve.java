@@ -33,7 +33,7 @@ public class Reserve extends Command {
         int buyFromFamilyId = 0;
         int buyerFamilyId = 0;
         String familyName = "";
-        int familyPhoneNo = 0;
+        String familyPhoneNo = "0";
         String splitSwimday = "";
         try {
             swimMapper = new SwimMapper(connectionPool);
@@ -48,7 +48,7 @@ public class Reserve extends Command {
             User user = (User) session.getAttribute("user");
             buyerFamilyId = user.getFamilyId();
             familyName = swimdateFamilyIdA[2];
-            familyPhoneNo = Integer.parseInt(swimdateFamilyIdA[3]);
+            familyPhoneNo = swimdateFamilyIdA[3];
             splitSwimday = swimdateFamilyIdA[4];
         } catch (Exception e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());

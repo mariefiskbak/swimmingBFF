@@ -33,6 +33,7 @@ abstract class Command
         commands.put("wish", new Wish());
         commands.put("admin", new Admin());
         commands.put("createSwimdays", new CreateSwimdays());
+        commands.put("createRegistration", new CreateRegistration());
     }
 
     static Command from( HttpServletRequest request ) {

@@ -12,11 +12,11 @@ public class ForSaleDTO {
     private String team;
     private int amountForSaleFromOneFamily;
     private Timestamp timestamp;
-    private int familyPhoneNo;
+    private String familyPhoneNo;
     private String familyName;
 
     //public ForSaleDTO(LocalDate swimday, int familyId, int weekNo, int amountForSaleFromOneFamily, Timestamp timestamp) {
-    public ForSaleDTO(Timestamp swimday, String splitSwimday, int familyId, int weekNo, String team, int amountForSaleFromOneFamily, int familyPhoneNo, String familyName) {
+    public ForSaleDTO(Timestamp swimday, String splitSwimday, int familyId, int weekNo, String team, int amountForSaleFromOneFamily, String familyPhoneNo, String familyName) {
         this.swimday = swimday;
         this.splitSwimday = splitSwimday;
         this.familyId = familyId;
@@ -51,7 +51,7 @@ public class ForSaleDTO {
         return amountForSaleFromOneFamily;
     }
 
-    public int getFamilyPhoneNo() {
+    public String getFamilyPhoneNo() {
         return familyPhoneNo;
     }
 

@@ -5,13 +5,13 @@ import java.util.Objects;
 public class User
 {
     private String email;
-    private int phoneNo;
+    private String phoneNo;
     private String name;
     private String role;
     private int familyId;
     private String password;
 
-    public User(String email, int phoneNo, String name, String role, int familyId, String password)
+    public User(String email, String phoneNo, String name, String role, int familyId, String password)
     {
         this.email = email;
         this.phoneNo = phoneNo;
@@ -34,7 +34,7 @@ public class User
                 '}';
     }
 
-    public int getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 

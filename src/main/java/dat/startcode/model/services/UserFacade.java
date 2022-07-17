@@ -15,7 +15,7 @@ public class UserFacade
         return userMapper.login(email, password);
     }
 
-    public static User createUser(String email, int phoneNo, String name, String role, int familyId, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User createUser(String email, String phoneNo, String name, String role, int familyId, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         UserMapper userMapper = new UserMapper(connectionPool);
         return userMapper.createUser(email, phoneNo, name, role, familyId, password);

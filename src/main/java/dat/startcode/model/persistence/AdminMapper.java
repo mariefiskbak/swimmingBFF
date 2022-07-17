@@ -95,4 +95,11 @@ public class AdminMapper {
 //            throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
 //        }
     }
+
+    public void createRegistration(int familyID, String teamID, int amount) {
+        //Hente alle svømmedagene der hører til teamID og putte dem i en liste
+
+
+        //for hver dag på listen oprette svømmebilletter på familieIDet og med antallet
+    }
 }

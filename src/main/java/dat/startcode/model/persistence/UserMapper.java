@@ -29,7 +29,7 @@ public class UserMapper {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String role = rs.getString("role");
-                    int phoneNo = rs.getInt("phone_no");
+                    String phoneNo = rs.getString("phone_no");
                     String name = rs.getString("name");
                     int familyId = rs.getInt("family_id");
                     user = new User(email, phoneNo, name, role, familyId, password);
@@ -43,7 +43,7 @@ public class UserMapper {
         return user;
     }
 
-    public User createUser(String email, int phoneNo, String name, String role, int familyId, String password) throws DatabaseException {
+    public User createUser(String email, String phoneNo, String name, String role, int familyId, String password) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
         String sql = "insert into user (email, password, role) values (?,?,?)";

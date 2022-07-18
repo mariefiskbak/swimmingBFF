@@ -1,8 +1,12 @@
 package dat.startcode.model.persistence;
+import dat.startcode.model.dtos.ForSaleDTO;
+import dat.startcode.model.dtos.Swimday;
 import dat.startcode.model.exceptions.DatabaseException;
 
 import java.sql.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +28,11 @@ public class AdminMapper {
 
         String teamId1 = "";
         String teamId2 = "";
-        if(week.equals("l")){
+        if (week.equals("l")) {
             teamId1 = "lige uge fre 9-10";
             teamId2 = "lige uge fre 10-11";
         }
-        if(week.equals("u")){
+        if (week.equals("u")) {
             teamId1 = "ulige uge fre 9-10";
             teamId2 = "ulige uge fre 10-11";
         } //TODO skal have den til at brokke sig, hvis man ikke fik skrevet l eller u
@@ -96,10 +100,111 @@ public class AdminMapper {
 //        }
     }
 
-    public void createRegistration(int familyID, String teamID, int amount) {
+    public void createRegistration(int familyID, String teamID, int amount) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
         //Hente alle svømmedagene der hører til teamID og putte dem i en liste
 
+        List<Swimday> swimdaysLists = new ArrayList<>();
 
-        //for hver dag på listen oprette svømmebilletter på familieIDet og med antallet
+        String sql = "SELECT * FROM swimming.swimday WHERE swimming.swimday.team_id = ?";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, teamID);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String swimdateS = "" + rs.getTimestamp("swimdate");
+                    Timestamp swimdate = Timestamp.valueOf(swimdateS);
+                    int weekNo = rs.getInt("week_no");
+                    String team = rs.getString("team_id");
+
+                    Swimday swimday = new Swimday(swimdateS, weekNo, team);
+                    swimdaysLists.add(swimday);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Fejl under indlæsning fra databasen");
+        }
+
+        //for every swimday on the list, create swimdaytickets on the day and the familyID with the amount
+        for (Swimday swimdaysList : swimdaysLists) {
+            String swimdateS = swimdaysList.getSwimday();
+            // Look if there already exist a swimdayticket on the day with that familyID
+            String sqlSearch = "SELECT * FROM swimming.swimdaytickets WHERE swimdate = ? AND family_id = ?";
+            try (Connection connection1 = connectionPool.getConnection()) {
+                try (PreparedStatement ps1 = connection1.prepareStatement(sqlSearch)) {
+                    ps1.setString(1, swimdateS);
+                    ps1.setInt(2, familyID);
+                    ResultSet rs = ps1.executeQuery();
+                    if (rs.next()) {
+                        // If a swimdayticket already exists, then update it
+                        String sqlUpdate = "UPDATE swimming.swimdaytickets SET current_ticket_amount = current_ticket_amount + ? WHERE swimdate = ? AND family_id = ?";
+                        try (Connection connection = connectionPool.getConnection()) {
+                            try (PreparedStatement ps = connection.prepareStatement(sqlUpdate)) {
+                                ps.setInt(1, amount);
+                                ps.setString(2, swimdateS);
+                                ps.setInt(3, familyID);
+                                int rowsAffected = ps.executeUpdate();
+                                if (rowsAffected == 1) {
+
+                                } else {
+                                    throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+                                }
+                            }
+                        } catch (SQLException | DatabaseException ex) {
+                            throw new DatabaseException(ex, "Kunne ikke opdatere svømmebilletter");
+                        }
+                    } else {
+                        // Otherwose create a new one
+                        String sqlCreate = "INSERT INTO swimming.swimdaytickets (swimdate, family_id, current_ticket_amount) VALUES (?, ?, ?)";
+                        try (Connection connection2 = connectionPool.getConnection()) {
+                            try (PreparedStatement ps2 = connection2.prepareStatement(sqlCreate)) {
+                                ps2.setString(1, swimdateS);
+                                ps2.setInt(2, familyID);
+                                ps2.setInt(3, amount);
+                                int rowsAffected = ps2.executeUpdate();
+                                if (rowsAffected == 1) {
+                                } else {
+                                    throw new DatabaseException("Svømmebilletterne blev ikke opdateret");
+                                }
+                            }
+                        } catch (SQLException | DatabaseException exe) {
+                            throw new DatabaseException(exe, "Kunne ikke opdatere svømmebilletter");
+                        }
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        // Insert the registration to the registration table
+        String sqlRegistration = "INSERT INTO swimming.registration (family_id, team_id, ticket_amount) VALUES (?, ?, ?)";
+        try (Connection connection2 = connectionPool.getConnection()) {
+            try (PreparedStatement ps2 = connection2.prepareStatement(sqlRegistration)) {
+                ps2.setInt(1, familyID);
+                ps2.setString(2, teamID);
+                ps2.setInt(3, amount);
+                int rowsAffected = ps2.executeUpdate();
+                if (rowsAffected == 1) {
+                } else {
+                    throw new DatabaseException("Registreringen blev ikke opdateret");
+                }
+            }
+        } catch (SQLException | DatabaseException exe) {
+            throw new DatabaseException(exe, "Kunne ikke opdatere registreringen");
+        }
+
     }
+    //TODO en metode der kan fjerne en svømmedag og folks billetter osv, i tilfælde af aflysning fra svømmehallen
+
+    //TODO familytabellen ER vist alligevel vigtig.
+    // Altså designet kunne have været anderledes, men nu er der en masse fremmednøgler knyttet til den tabel
+    // Brugerne skal skrives ind via siden, så family-tabellen automatisk kan blive udfyldt samtidig.
+    // Men skal lige finde ud af i hvilken rækkefølge det kan lade sig gøre
+
+    //TODO Ville være fedt, hvis man ikke bare skal vide family-id, men kan få vist et navn eller noget så man ved hvem det er. i dropdpwn fx, når man skal lave regostreringer
 }

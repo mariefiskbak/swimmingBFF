@@ -89,9 +89,8 @@ public class ApplicationStart implements ServletContextListener
 //DONE: M: Kan man mon ikke lave en constrain på SQL-tabellen, så svømmebilletterne ikke kan blive negative tal. INT UNSIGNED, //TODO: så skal der også exception handling på
 //TODO: M: Gøre primaryUser i User til binær??
 //TODO: M: Sætte nogle flere auto increment og automatisk zero?
-//TODO: L: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
-//TODO: M: doven adminmulighed? Bare kunne skrive SQL direkte? Vigtigt kun for admin i så fald, og ikke noget man kan komme ind på via URL
-//TODO: L: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
+//DONE: L: Lave admin muligheder, slette brugere, oprette brugere, svømmedage.
+//DONE: L: Lave noget smart så registreringen af det svømmehold folk har købt deler pladser ud til alle deres svømmedage.
 //TODO: L: Exceptionproblem, når noget går galt i en mapper, så kører exceptionen den bare videre til en anden database, og looper. Den skal stoppe.
 //TODO: XL: Fejlhåndtering
 //TODO: M: Siderne skal tjekke at man er logget ind, så man ikke kan komme ind og gøre ting via URL
@@ -104,7 +103,7 @@ public class ApplicationStart implements ServletContextListener
 //TODO: L: Sætte login log op,,, i -tomcat?
 //TODO: L: Generelle problemer hvis folk reloader deres sider
 //DONE: L: Hvordan flytter jeg billetterne tilbage til til-salg fra reserveret, hvis brugeren ikke har trykket fortryd?
-//TODO: M: Virker køb og salg egentlig, hvis ikke brugeren i forvejen har svømmedagen oprettet? Og skal listen sætttes op, så de dage med 0 billetter ikke vises?
+//DONE: M: Virker køb og salg egentlig, hvis ikke brugeren i forvejen har svømmedagen oprettet? Og skal listen sætttes op, så de dage med 0 billetter ikke vises?
 
 //TODO: 1: Sætte ønskebillet-funktionen op. Hvis nogen sætter noget til salg en dag, hvor nogen har ønsket, får de besked på at sende en sms.
 //TODO: 2: Lave admin-side så dele af databasen atomatisk bliver udfyldt.

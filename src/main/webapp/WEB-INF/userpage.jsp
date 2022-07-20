@@ -30,12 +30,12 @@
                         <input type="submit" value="Se billetter til salg"/>
                     </form>
                 </div>
-                <div class="col">
+                <%--<div class="col">
                     <form action="fc/wishfortickets" method="post">
                         <input type="hidden" name="command" value="wishfortickets"/>
                         <input type="submit" value="Ønsk billetter"/>
                     </form>
-                </div>
+                </div>--%>
             </div>
         </div>
 

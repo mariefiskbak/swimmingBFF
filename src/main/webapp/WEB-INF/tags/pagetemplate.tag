@@ -52,8 +52,8 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link"
-                       href="${pageContext.request.contextPath}/fc/about?command=about">Om</a>
+                    <%--<a class="nav-item nav-link"
+                       href="${pageContext.request.contextPath}/fc/about?command=about">Om</a>--%>
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Log ind</a>
                     </c:if>
@@ -62,8 +62,8 @@
                            href="${pageContext.request.contextPath}/fc/userpage?command=userpage">Medlemsside</a>
                         <a class="nav-item nav-link"
                            href="${pageContext.request.contextPath}/fc/forsale?command=forsale">Til salg</a>
-                        <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/fc/wishfortickets?command=wishfortickets">Ønsk billetter</a>
+                        <%--<a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/fc/wishfortickets?command=wishfortickets">Ønsk billetter</a>--%>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/fc/logout?command=logout">Log
                             ud</a>
                     </c:if>

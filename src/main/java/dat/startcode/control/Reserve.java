@@ -53,7 +53,6 @@ public class Reserve extends Command {
         } catch (Exception e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());
-            //TODO vil gerne hen til fejlsiden, så der kan prøves igen. Virker ikke. vil også gerne skrive en besked om at nogle andre allerede har købt billetterne
             //request.getRequestDispatcher("error.jsp").forward(request, response);
             response.sendRedirect(request.getServletContext().getContextPath() + "/error.jsp");
         }

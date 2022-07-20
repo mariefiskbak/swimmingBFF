@@ -24,6 +24,9 @@ public class MessageMapper {
     }
 
     public void putMessageInDB(int buyFromFamilyId, String message) throws DatabaseException {
+        //TODO det kunne godt være brugerens navn, da man nok kan antage at den der er logget ind også er den,
+        // der overfører. Kræver måske en større ændring, også af getMessageList, evt kan begge navne fremgå.
+        // IDE, hvis det ikke er primary user der køber, SÅ står begge navne der.
         Logger.getLogger("web").log(Level.INFO, "");
         String buyFromFamilyIdS = "" + buyFromFamilyId;
         String sql = "insert into swimming.messages (family_id, message) values (?,?)";

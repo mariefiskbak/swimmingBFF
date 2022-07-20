@@ -39,7 +39,27 @@
 
 
             2 Opret brugerne:
-            Gør det pt direkte i databasen
+            Systemet fylder i family-tabellen også
+Familie-ID:         Navn:       email:      tlf:        password:       primær bruger:
+            <form action="fc/createUser">
+                <label for="family">Familie-ID:</label>
+                <input type="number" id="family" name="family"><br><br>
+                <label for="name">Navn:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email"><br><br>
+                <label for="phone">Tlf nr:</label>
+                <input type="text" id="phone" name="phone"><br><br>
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password"><br><br>
+                <label for="primary">Primær bruger?:</label>
+                <select name="primary" id="primary">
+                    <option value="yes">Ja</option>
+                    <option value="no">Nej</option>
+                </select><br><br>
+                <input type="hidden" name="command" value="createUser"/>
+                <input type="submit" value="Send">
+            </form>
 
             <br><br>
 

@@ -102,7 +102,9 @@ public class AdminMapper {
 
     public void createRegistration(int familyID, String teamID, int amount) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-
+//TODO måske skal kun dagene efter dags dato tilføjes til registreringen. Kun relevant,
+// hvis der kommer registreringer efter sæsonen er gået i gang og den konkrete familie tidligere har købt billetter
+// og jeg vil kigge på databasen for at få noget info om tidligere billetter
         //Hente alle svømmedagene der hører til teamID og putte dem i en liste
 
         List<Swimday> swimdaysLists = new ArrayList<>();
@@ -199,12 +201,73 @@ public class AdminMapper {
         }
 
     }
-    //TODO en metode der kan fjerne en svømmedag og folks billetter osv, i tilfælde af aflysning fra svømmehallen
 
     //TODO familytabellen ER vist alligevel vigtig.
     // Altså designet kunne have været anderledes, men nu er der en masse fremmednøgler knyttet til den tabel
     // Brugerne skal skrives ind via siden, så family-tabellen automatisk kan blive udfyldt samtidig.
     // Men skal lige finde ud af i hvilken rækkefølge det kan lade sig gøre
+
+    public void createUser(int familyID, String name, String email, String phone, String password, String primaryUser) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        //først sæt ind i family-tballen
+        //Tjek om en fra familien allerede er i family-tabellen
+        String sqlSearch = "SELECT * FROM swimming.family WHERE family_id = ?";
+        try (Connection connection1 = connectionPool.getConnection()) {
+            try (PreparedStatement ps1 = connection1.prepareStatement(sqlSearch)) {
+                ps1.setInt(1, familyID);
+                ResultSet rs = ps1.executeQuery();
+                if (rs.next()) {
+                    // If the family is already there, do nothing
+                } else {
+                    // Otherwose create a new one
+        //Sæt ind i family tabellen
+                    String sqlCreate = "INSERT INTO swimming.family (family_id, primary_user_email) VALUES (?, ?)";
+                    try (Connection connection2 = connectionPool.getConnection()) {
+                        try (PreparedStatement ps2 = connection2.prepareStatement(sqlCreate)) {
+                            ps2.setInt(1, familyID);
+                            ps2.setString(2, email);
+                            int rowsAffected = ps2.executeUpdate();
+                            if (rowsAffected == 1) {
+                            } else {
+                                throw new DatabaseException("Familietabellen blev ikke opdateret");
+                            }
+                        }
+                    } catch (SQLException | DatabaseException exe) {
+                        throw new DatabaseException(exe, "Kunne ikke opdatere familietabellen");
+                    }
+                }
+            } catch (SQLException | DatabaseException throwables) {
+                throwables.printStackTrace();
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //SÅ sæt ind i user-tabellen
+        String sqlUser = "INSERT INTO swimming.user (email, phone_no, name, role, family_id, password, primary_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection2 = connectionPool.getConnection()) {
+            try (PreparedStatement ps2 = connection2.prepareStatement(sqlUser)) {
+                ps2.setString(1, email);
+                ps2.setString(2, phone);
+                ps2.setString(3, name);
+                ps2.setString(4, "user");
+                ps2.setInt(5, familyID);
+                ps2.setString(6, password);
+                ps2.setString(7, primaryUser);
+                int rowsAffected = ps2.executeUpdate();
+                if (rowsAffected == 1) {
+                } else {
+                    throw new DatabaseException("Brugertabellen blev ikke opdateret");
+                }
+            }
+        } catch (SQLException | DatabaseException exe) {
+            throw new DatabaseException(exe, "Kunne ikke opdatere brugertabellen");
+        }
+    }
+
+    //TODO en metode der kan fjerne en svømmedag og folks billetter osv, i tilfælde af aflysning fra svømmehallen
 
     //TODO Ville være fedt, hvis man ikke bare skal vide family-id, men kan få vist et navn eller noget så man ved hvem det er. i dropdpwn fx, når man skal lave regostreringer
 }

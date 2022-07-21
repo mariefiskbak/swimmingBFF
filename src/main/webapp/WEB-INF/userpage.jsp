@@ -25,13 +25,13 @@
                     <p>Mobile pay nr: ${sessionScope.user.phoneNo}</p>
                 </div>
                 <div class="col">
-                    <form action="fc/forsale" method="post">
+                    <form action=${pageContext.request.contextPath}/fc/forsale method="post">
                         <input type="hidden" name="command" value="forsale"/>
                         <input type="submit" value="Se billetter til salg"/>
                     </form>
                 </div>
                 <%--<div class="col">
-                    <form action="fc/wishfortickets" method="post">
+                    <form action=${pageContext.request.contextPath}/fc/wishfortickets method="post">
                         <input type="hidden" name="command" value="wishfortickets"/>
                         <input type="submit" value="Ønsk billetter"/>
                     </form>
@@ -54,7 +54,7 @@
                 <tbody>
                 <c:forEach var="messages" items="${sessionScope.messageList}">
                     <tr>
-                        <form action="fc/deletemessage">
+                        <form action=${pageContext.request.contextPath}/fc/deletemessage>
                             <td>${messages.message}</td>
                             <td>
                                 <div class="container">
@@ -110,7 +110,7 @@
                     <c:if test="${swimtable.teamId == 'ulige uge fre 10-11'}">
                         <tr style="background-color: rgba(255,0,0,0.26)">
                     </c:if>
-                        <form action="fc/sell">
+                        <form action=${pageContext.request.contextPath}/fc/sell>
                             <td>${swimtable.splitSwimday}</td>
                             <td>${swimtable.weekNo}</td>
                             <td>${swimtable.currentTicketAmount} stk</td>
@@ -119,7 +119,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="hidden" name="command" value="sell"/>
-                                            <input type="number" name="sell" id="sell${swimtable.weekNo}"
+                                            <input type="number" name="sell" id="sell${swimtable.swimday}"
                                                    class="form-control" value="${swimtable.currentTicketAmount}"
                                                    style="width: 5rem" min="0" max="${swimtable.currentTicketAmount}"/>
                                         </div>
@@ -132,13 +132,13 @@
                                 </div>
                             </td>
                         </form>
-                        <form action="fc/regret">
+                        <form action=${pageContext.request.contextPath}/fc/regret>
                             <td>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
                                             <input type="hidden" name="command" value="regretSettingForSale"/>
-                                            <input type="number" name="regret" id="regret${swimtable.weekNo}"
+                                            <input type="number" name="regret" id="regret${swimtable.swimday}"
                                                    class="form-control" value="${swimtable.ticketsForSale}"
                                                    style="width: 5rem" min="0" max="${swimtable.ticketsForSale}"/>
                                         </div>

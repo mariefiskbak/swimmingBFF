@@ -43,6 +43,7 @@ public class UserMapper {
         return user;
     }
 
+
     public User createUser(String email, String phoneNo, String name, String role, int familyId, String password) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;

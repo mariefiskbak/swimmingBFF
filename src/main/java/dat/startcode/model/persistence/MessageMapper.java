@@ -43,8 +43,8 @@ public class MessageMapper {
         } catch (SQLException | DatabaseException ex) {
             throw new DatabaseException(ex, "Could not insert email into database");
         }
-
     }
+
 
     public List<Message> getMessageList(int familyId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
@@ -64,15 +64,14 @@ public class MessageMapper {
 
                     Message messageObject = new Message(message, messageId, familyId);
                     messageList.add(messageObject);
-
                 }
             }
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Fejl under indlæsning fra databasen");
         }
         return messageList;
-
     }
+
 
     public void deleteMessage(int messageId) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");

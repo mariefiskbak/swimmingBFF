@@ -20,9 +20,9 @@
     <jsp:body>
         <c:if test="${sessionScope.user.role == 'admin'}">
 
-            1 Opret svømmedagene:
+            <h2>1 Opret svømmedagene:</h2>
             skriv dagene ind med formatet YYYY-MM-DD og ugenr og om det er et lige eller ulige hold og så opretter systemet begge hold på dagen
-            <form action="fc/createSwimdays">
+            <form action=${pageContext.request.contextPath}/fc/createSwimdays>
                 <label for="date">Dato:</label>
                 <input type="date" id="date" name="date"><br><br>
                 <label for="weekno">Uge nr:</label>
@@ -38,10 +38,10 @@
             <br><br>
 
 
-            2 Opret brugerne:
+            <h2>2 Opret brugerne:</h2>
             Systemet fylder i family-tabellen også
 Familie-ID:         Navn:       email:      tlf:        password:       primær bruger:
-            <form action="fc/createUser">
+            <form action=${pageContext.request.contextPath}/fc/createUser>
                 <label for="family">Familie-ID:</label>
                 <input type="number" id="family" name="family"><br><br>
                 <label for="name">Navn:</label>
@@ -63,10 +63,10 @@ Familie-ID:         Navn:       email:      tlf:        password:       primær 
 
             <br><br>
 
-            3 Opret registreringer:
+            <h2>3 Opret registreringer:</h2>
             Så giver systemet automatisk familierne det rigtige antal billetter.
 
-            <form action="fc/createRegistration">
+            <form action=${pageContext.request.contextPath}/fc/createRegistration>
                 <label for="familyid">Familie-ID:</label>
                 <input type="number" id="familyid" name="familyid"><br><br>
                 <label for="team">Hold-ID:</label>

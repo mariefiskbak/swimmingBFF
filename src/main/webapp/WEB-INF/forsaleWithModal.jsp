@@ -36,7 +36,7 @@
                 <tbody>
                 <c:forEach var="forsale" items="${sessionScope.forSaleDTOList}">
                     <tr>
-                        <form action="fc/buy">
+                        <form action=${pageContext.request.contextPath}/fc/buy>
                             <td>${forsale.splitSwimday}</td>
                             <td>${forsale.weekNo}</td>
                             <td>${forsale.team}</td>

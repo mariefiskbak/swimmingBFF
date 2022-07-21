@@ -17,7 +17,7 @@
 
         <h3>Du kan logge ind her</h3>
 
-        <form action="fc/login" method="post">
+        <form action=${pageContext.request.contextPath}/fc/login method="post">
             <input type="hidden" name="command" value="login"/>
             <label for="email">Email: </label>
             <br>

@@ -41,6 +41,9 @@ public class RegretBuying extends Command {
         swimMapper.regretBuying(swimdate, buyFromFamilyId, buyAmount, buyerFamilyId);
         TicketsHaveBeenMoved t = (TicketsHaveBeenMoved) session.getAttribute("ticketsHaveBeenMoved");
         t.setTicketsHaveBeenMoved(true);
+        //Thread.currentThread().interrupt();
+        Thread thread = (Thread) session.getAttribute("thread");
+        thread.interrupt();
 
         Forsale forsale = new Forsale();
         forsale.execute(request, response);

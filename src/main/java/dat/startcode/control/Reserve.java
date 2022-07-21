@@ -69,6 +69,7 @@ public class Reserve extends Command {
         //Starts a new thread that after 4 minutes, moves the tickets back from reserved_tickets to _tickets_for_sale.
         //It works!!
         Thread thread = new Thread(new Runnable(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId, connectionPool, session));
+        session.setAttribute("thread", thread);
         thread.start();
 
         return "pay";

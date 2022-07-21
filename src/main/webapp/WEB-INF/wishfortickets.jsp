@@ -76,7 +76,7 @@
                                             <!-- Button buy -->
                                             <input type="hidden" name="command" value="wish"/>
                                             <button type="submit" name="wishbutton" class="btn btn-outline-secondary"
-                                                    formaction="fc/wish" formmethod="post"
+                                                    formaction=${pageContext.request.contextPath}/fc/wish formmethod="post"
                                                     value="${swimday.swimday},${sessionScope.user.familyId}"
                                                 <%--                                                id="submit${forsale.weekNo}_${forsale.familyId}"--%>
                                             >

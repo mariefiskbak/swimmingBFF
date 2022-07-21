@@ -28,17 +28,21 @@ public class Runnable implements java.lang.Runnable {
 
     @Override
     public void run() {
-        try {
-            TicketsHaveBeenMoved t = new TicketsHaveBeenMoved(false);
-            session.setAttribute("ticketsHaveBeenMoved", t);
-            TimeUnit.MINUTES.sleep(4);
-            t = (TicketsHaveBeenMoved) session.getAttribute("ticketsHaveBeenMoved");
-            if(!t.getTicketsHaveBeenMoved()) {
-                SwimMapper swimMapper = new SwimMapper(connectionPool);
-                swimMapper.regretBuying(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId);
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                TicketsHaveBeenMoved t = new TicketsHaveBeenMoved(false);
+                session.setAttribute("ticketsHaveBeenMoved", t);
+                TimeUnit.MINUTES.sleep(4);
+                //TODO problem, hvis man klikker fortryd, og så køb igen, så er det den første tid der tæller
+                t = (TicketsHaveBeenMoved) session.getAttribute("ticketsHaveBeenMoved");
+                if (!t.getTicketsHaveBeenMoved()) {
+                    SwimMapper swimMapper = new SwimMapper(connectionPool);
+                    swimMapper.regretBuying(swimdate, buyFromFamilyId, reserveAmount, buyerFamilyId);
+                }
+            } catch (InterruptedException | DatabaseException e) {
+                Thread.currentThread().interrupt();
+                return;
             }
-        } catch (InterruptedException | DatabaseException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -46,7 +46,7 @@
                     <c:if test="${forsale.team == 'ulige uge fre 10-11'}">
                         <tr style="background-color: rgba(255,0,0,0.26)">
                     </c:if>
-                        <form action="fc/buy">
+                        <form action=${pageContext.request.contextPath}/fc/buy>
                             <td>${forsale.splitSwimday}</td>
                             <td>${forsale.weekNo}</td>
                             <td>
@@ -54,8 +54,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="number" name="buy"
-<%--                                                //TODO skal det virkelig være weekNo, nedenfor?? og også ved knappen, id'et blev måske alligvel kun brugt af det der javascript--%>
-                                                   id="buy${forsale.weekNo}_${forsale.familyId}"
+                                                   id="buy${forsale.swimday}_${forsale.familyId}"
                                                    class="form-control" value="${forsale.amountForSaleFromOneFamily}"
                                                    style="width: 5rem" min="0"
                                                    max="${forsale.amountForSaleFromOneFamily}"/>
@@ -64,9 +63,9 @@
                                             <!-- Button buy -->
                                             <input type="hidden" name="command" value="reserve"/>
                                             <button type="submit" name="reservebutton" class="btn btn-outline-secondary"
-                                                    formaction="fc/reserve" formmethod="post"
+                                                    formaction=${pageContext.request.contextPath}/fc/reserve formmethod="post"
                                                     value="${forsale.swimday},${forsale.familyId},${forsale.familyName},${forsale.familyPhoneNo},${forsale.splitSwimday}"
-                                                    id="submit${forsale.weekNo}_${forsale.familyId}">
+                                                    id="submit${forsale.swimday}_${forsale.familyId}">
                                                 Køb
                                             </button>
                                         </div>

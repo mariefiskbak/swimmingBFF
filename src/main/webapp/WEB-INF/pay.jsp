@@ -22,14 +22,14 @@
       Skriv i kommentarfeltet: <input type="text" value="${sessionScope.reservedAmount} svømmebilletter til den ${sessionScope.splitSwimday}" id="myInput2" style="border: white; width: 20rem;"> <button onclick="myFunction2()">Kopier tekst</button>
 
       <br> <br>
-      <form action="fc/buy" method="post">
+      <form action=${pageContext.request.contextPath}/fc/buy method="post">
           <input type="hidden" name="command" value="buy"/>
           <button type="submit" class="btn btn-primary" name="buy_id"
                   value="${sessionScope.swimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">Jeg har overført nu
           </button>
       </form>
       <br>
-      <form action="fc/regretBuying" method="post">
+      <form action=${pageContext.request.contextPath}/fc/regretBuying method="post">
           <input type="hidden" name="command" value="regretBuying"/>
           <button type="submit" class="btn btn-secondary" name="regret_id" value="${sessionScope.swimday},${sessionScope.buyFromFamilyId},${sessionScope.reservedAmount}">
               Fortryd køb

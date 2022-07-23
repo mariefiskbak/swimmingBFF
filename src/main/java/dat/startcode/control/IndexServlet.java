@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.dtos.Swimday;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
@@ -13,10 +14,15 @@ import java.util.List;
 
 @WebServlet(name = "IndexServlet", value = "/IndexServlet")
 public class IndexServlet extends HttpServlet {
+
+    private ConnectionPool connectionPool;
+
+    public IndexServlet() {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        ConnectionPool connectionPool = new ConnectionPool();
 
         SwimMapper swimMapper = new SwimMapper(connectionPool);
         List<Swimday> swimdayList = null;

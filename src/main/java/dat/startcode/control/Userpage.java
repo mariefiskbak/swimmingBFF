@@ -40,8 +40,7 @@ public class Userpage extends Command {
             List<SwimTableDTO> swimTableDTOList = swimMapper.getSwimTableDTOList(familyId);
             session.setAttribute("swimTableDTOList", swimTableDTOList);
 
-            ConnectionPool connectionPool1 = new ConnectionPool();
-            SalesMapper salesMapper = new SalesMapper(connectionPool1);
+            SalesMapper salesMapper = new SalesMapper(connectionPool);
             List<ForSaleDTO> forSaleDTOList = salesMapper.getForSaleDTOList();
             session.setAttribute("forSaleDTOList", forSaleDTOList);
 
